@@ -31,3 +31,21 @@
 *.upb
 main.pdf
 *.bin
+
+# hls projects
+**/*.proj/
+
+# ignore any python virtual environments
+**/.venv/
+
+# ignore examples/tcl files since they are auto-generated
+examples/*.tcl
+
+*.pyc
+
+.vscode/
+node_modules/
+
+examples/hls/
+
+.gradle/
