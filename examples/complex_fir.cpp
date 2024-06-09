@@ -1,8 +1,10 @@
 typedef int	data_t;
-void firI1(data_t *y, data_t x);
-void firQ1(data_t *y, data_t x);
-void firI2(data_t *y, data_t x);
-void firQ2(data_t *y, data_t x);
+extern "C" {void fir(data_t *y, data_t x);}
+
+void firI1(data_t *y, data_t x) { fir(y,x);}
+void firQ1(data_t *y, data_t x) { fir(y,x);}
+void firI2(data_t *y, data_t x) { fir(y,x);}
+void firQ2(data_t *y, data_t x) { fir(y,x);}
 
 void complexFIR(data_t Iin, data_t Qin, data_t *Iout, data_t *Qout) {
 
