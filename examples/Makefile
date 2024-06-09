@@ -38,7 +38,7 @@ CXX = g++ $(SPDLOG)
 LD_PATH_NEW = /usr/lib/x86_64-linux-gnu
 LD_LIBRARY_PATH := $(shell echo $(value LD_LIBRARY_PATH) | grep -q $(LD_PATH_NEW) || echo $(LD_PATH_NEW):)$(value LD_LIBRARY_PATH)
 
-GEN_TCL = $(CURDIR)/../scripts/gen_vivado_hls_csynth_script.py
+GEN_TCL = $(CURDIR)/../scripts/gen_hls_csynth_script.py
 HLS_CONFIG_FILE = $(CURDIR)/__hls_config__.ini
 
 $(warning $(EXAMPLES_LOG))
