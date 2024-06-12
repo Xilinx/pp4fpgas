@@ -1,0 +1,19 @@
+{
+  "branches": ["master", "mp-hls_book_update_effort"],
+  "plugins": [
+    "@semantic-release/commit-analyzer",
+    "@semantic-release/release-notes-generator",
+    {
+      "path": "@semantic-release/npm",
+      "npmPublish": false
+    },
+    "@semantic-release/changelog",
+    [
+      "@semantic-release/git",
+      {
+        "assets": ["package.json", "package-lock.json", "CHANGELOG.md"],
+        "message": "chore(release): ${nextRelease.version} [skip ci]\n\n${nextRelease.notes}"
+      }
+    ]
+  ]
+}
