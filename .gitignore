@@ -49,3 +49,12 @@ node_modules/
 examples/hls/
 
 .gradle/
+
+examples/*.out.dat
+examples/out.*.dat
+examples/out.dat
+
+examples/video*.bmp
+
+
+
