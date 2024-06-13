@@ -1,3 +1,10 @@
+## [1.0.1](https://gitenterprise.xilinx.com/mpettigr/pp4fpgas/compare/v1.0.0...v1.0.1) (2024-06-13)
+
+
+### Bug Fixes
+
+* disable body-max-line-length during release ([3f31e15](https://gitenterprise.xilinx.com/mpettigr/pp4fpgas/commit/3f31e1591fae85f747db10d368b473de5e4d1185))
+
 # 1.0.0 (2024-06-13)
 
 
