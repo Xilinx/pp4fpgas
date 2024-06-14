@@ -6,7 +6,7 @@ void spmv(int rowPtr[NUM_ROWS+1], int columnIndex[NNZ],
        DTYPE values[NNZ], DTYPE y[SIZE], DTYPE x[SIZE])
 {
 //#pragma HLS ARRAY_PARTITION variable=row_ptr cyclic factor=16 dim=1
-#pragma HLS ARRAY_PARTITION variable=rowPtr cyclic factor=16 dim=1
+#pragma HLS ARRAY_PARTITION variable=rowPtr cyclic factor=NUM_ROWS+1 dim=1
 
 int i;
 int cnt;
