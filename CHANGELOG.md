@@ -1,3 +1,12 @@
+## [1.0.2](https://gitenterprise.xilinx.com/mpettigr/pp4fpgas/compare/v1.0.1...v1.0.2) (2024-06-14)
+
+
+### Bug Fixes
+
+* incorrect factor value ([410e644](https://gitenterprise.xilinx.com/mpettigr/pp4fpgas/commit/410e64406de1b4398d8f2effc4653d962979388b))
+* remove spurious commitlint cfg file ([451ca97](https://gitenterprise.xilinx.com/mpettigr/pp4fpgas/commit/451ca971628a8fe7ede4a65ee09b39f721bc5b31))
+* same named variables - vivado_hls ([876016a](https://gitenterprise.xilinx.com/mpettigr/pp4fpgas/commit/876016aebc15d4589192cb06fc66b53d1c113498))
+
 ## [1.0.1](https://gitenterprise.xilinx.com/mpettigr/pp4fpgas/compare/v1.0.0...v1.0.1) (2024-06-13)
 
 
