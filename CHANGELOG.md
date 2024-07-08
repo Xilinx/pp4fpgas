@@ -1,3 +1,15 @@
+# [1.1.0](https://gitenterprise.xilinx.com/mpettigr/pp4fpgas/compare/v1.0.3...v1.1.0) (2024-07-08)
+
+
+### Bug Fixes
+
+* add semantic-release support to Makefile ([c32880a](https://gitenterprise.xilinx.com/mpettigr/pp4fpgas/commit/c32880a912ba1824a1fd53ef1cd14699e987abc3))
+
+
+### Features
+
+* replace term Vivado with Vitis ([4817cf6](https://gitenterprise.xilinx.com/mpettigr/pp4fpgas/commit/4817cf6a23f959730abb297b7a0ed38b0c57375e))
+
 ## [1.0.3](https://gitenterprise.xilinx.com/mpettigr/pp4fpgas/compare/v1.0.2...v1.0.3) (2024-07-08)
 
 
