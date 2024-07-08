@@ -1,3 +1,12 @@
+## [1.0.3](https://gitenterprise.xilinx.com/mpettigr/pp4fpgas/compare/v1.0.2...v1.0.3) (2024-07-08)
+
+
+### Bug Fixes
+
+* add more robust support for pdflatex ([cc42632](https://gitenterprise.xilinx.com/mpettigr/pp4fpgas/commit/cc426329d0d4cba3ba3b052e9c6d99901c4fbf26))
+* add python requirements.txt for venv setup ([db839ba](https://gitenterprise.xilinx.com/mpettigr/pp4fpgas/commit/db839ba3ebcade2a2b0bab48f821cd96db8d1b04))
+* update venv requirements.txt ([7346e7a](https://gitenterprise.xilinx.com/mpettigr/pp4fpgas/commit/7346e7a35e608b94c401de1943197bb84a962e29))
+
 ## [1.0.2](https://gitenterprise.xilinx.com/mpettigr/pp4fpgas/compare/v1.0.1...v1.0.2) (2024-06-14)
 
 
