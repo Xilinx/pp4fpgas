@@ -1,8 +1,6 @@
 # This makefile was tested with Vivado HLS 2019.2
 # and Vitis v2024.1
 # 
-# setup_vitis_common /proj/xbuilds/2019.2_released
-# setup_vitis_common /proj/xbuilds/2024.1_released
 #
 
 # select the HLS compiler to use (vivado_hls or vitis)
@@ -38,8 +36,11 @@ CXX = g++ $(SPDLOG)
 LD_PATH_NEW = /usr/lib/x86_64-linux-gnu
 LD_LIBRARY_PATH := $(shell echo $(value LD_LIBRARY_PATH) | grep -q $(LD_PATH_NEW) || echo $(LD_PATH_NEW):)$(value LD_LIBRARY_PATH)
 
-GEN_TCL = $(CURDIR)/../scripts/gen_hls_csynth_script.py
-HLS_CONFIG_FILE = $(CURDIR)/__hls_config__.ini
+#GEN_TCL = $(CURDIR)/../scripts/gen_hls_csynth_script.py
+GEN_TCL = $(CURDIR)/../scripts/gen_hls_impl_script.py
+
+#HLS_CONFIG_FILE = $(CURDIR)/__hls_config__.ini
+HLS_CONFIG_FILE = $(CURDIR)/__hls_config__versal500__.ini
 
 $(warning $(EXAMPLES_LOG))
 
