@@ -12,14 +12,12 @@ void block_fir(int input[256][K], int output[256][K], int taps[NUM_TAPS],
 #pragma HLS unroll
 				delay_line[i][k] = delay_line[i - 1][k];
 			}
-			//delay_line[0][k] = input;
 			delay_line[0][k] = input[j][k];
 
 			for (i = 0; i < NUM_TAPS; i++) {
 #pragma HLS pipeline
 				result[k] += delay_line[i][k] * taps[i];
 			}
-			//output[j][k] = result;
 			output[j][k] = result[k];
 		}
 	}

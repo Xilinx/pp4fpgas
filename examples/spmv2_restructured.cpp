@@ -1,7 +1,6 @@
 #include "spmv.h"
 #include <stdio.h>
 
-//const static int S = 8;
 const static int S = SIZE;
 
 void spmv(int rowPtr[NUM_ROWS+1], int columnIndex[NNZ],

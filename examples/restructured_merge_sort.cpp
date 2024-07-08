@@ -1,4 +1,3 @@
-//#include "MergeSort.h"
 #include "merge_sort.h"
 
 //divide i into two streams. Every two elements in each of the streams is sorted.
