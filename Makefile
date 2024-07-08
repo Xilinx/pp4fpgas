@@ -21,3 +21,11 @@ main.pdf: main.aux *.tex
 
 clean:
 	rm -rf main.pdf *.log *~ *.aux *.bbl *.blg *.out
+
+# Manually perform a release using semantic-release.
+# Warning: This will push to the remote repository.
+#
+# If you want to test the release process without pushing to the remote
+# repository, use `npx semantic-release -d`.
+manual-release:
+	npx semantic-release --no-ci
