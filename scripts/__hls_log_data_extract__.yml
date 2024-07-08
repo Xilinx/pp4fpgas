@@ -62,11 +62,16 @@ component:
     vitis_hls:
       pattern: "INFO: \\[vitis-run 60-791\\] (Total elapsed time: .*s)"
     vivado_hls:
-      pattern: "INFO: \\[HLS 200-112\\] (Total elapsed time: 31.64 seconds);"
-
+      pattern: "INFO: \\[HLS 200-112\\] (Total elapsed time: .*);"
 
   estimated_fmax:
     pattern: "INFO: \\[HLS 200-789\\] \\*\\*\\*\\* Estimated Fmax: ([0-9.]+ MHz)"
+
+  cp_achieved_post_synth:
+    pattern: "CP achieved post-synthesis:\\s+([0-9.]+)"
+
+  cp_achieved_post_impl:
+    pattern: "CP achieved post-implementation:\\s+([0-9.]+)"
 
   csynth_run_stats:
     pattern: "INFO: \\[HLS 200-2161\\] (Finished Command csynth_design.*)"
