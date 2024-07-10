@@ -1,8 +1,7 @@
 
 #include "stdio.h"
 
-#define NUM_TAPS 16
-void fir(int input, int *output, int taps[NUM_TAPS]);
+#include "fir.h"
 
 const int SIZE = 256;
 
