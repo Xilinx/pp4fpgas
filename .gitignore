@@ -31,6 +31,7 @@
 *.upb
 main.pdf
 *.bin
+*.o
 
 # hls projects
 **/*.proj/

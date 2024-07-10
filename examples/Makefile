@@ -7,12 +7,13 @@
 USE_VITIS=1
 
 ifeq ($(USE_VITIS),1)
-	VITIS_COMPILER = $(shell which vitis)
-	VHLS = $(VITIS_COMPILER)/../include
-	HLS_COMPILER=vitis-run --mode hls --tcl 
+VITIS_COMPILER := $(shell dirname $(shell which vitis_hls))
+
+VHLS = $(VITIS_COMPILER)/..
+HLS_COMPILER=vitis-run --mode hls --tcl 
 else
-	VHLS = $(shell vivado_hls -r)
-	HLS_COMPILER=vivado_hls -f
+VHLS := $(shell vivado_hls -r)
+HLS_COMPILER=vivado_hls -f
 endif
 
 EXAMPLES = $(shell ls *-top.c)
@@ -28,7 +29,7 @@ EXAMPLES_LOG += $(patsubst %.cpp,%.log,$(EXAMPLES_CPP))
 #CXX = $(VHLS)/lnx64/tools/clang/bin/clang++
 #CC = gcc -I../../../spdlog/include -L../../../spdlog/build -lspdlog
 SPDLOG := -I../../../spdlog/include -L../../../spdlog/build -lspdlog
-CC = g++ $(SPDLOG)
+CC = gcc $(SPDLOG)
 CXX = g++ $(SPDLOG)
 
 # insert new LD path to the LD_LIBRARY_PATH if it is not already there
@@ -63,6 +64,14 @@ video_2dfilter_linebuffer_extended-top.log: video_2dfilter_linebuffer_extended-t
 
 video_2dfilter_linebuffer_extended_constant-top.log: video_2dfilter_linebuffer_extended_constant-top.bin
 	./$< $(INPUTFILE) video_2dfilter_linebuffer_extended_constant.bmp > $@
+
+%.o: %.c
+	$(CC) -I$(VHLS)/include -c $< -o $@
+%.o: %.cpp
+	$(CXX) -I$(VHLS)/include -c $< -o $@
+
+complex_fir-top.bin: complex_fir-top.o complex_fir.o fir.o
+	LD_LIBRARY_PATH=$(LD_LIBRARY_PATH) $(CXX) -I$(VHLS)/include -g -o $@ $^
 
 %-top.bin: %-top.c %.c bitmap.c
 	LD_LIBRARY_PATH=$(LD_LIBRARY_PATH) $(CC) -I$(VHLS)/include -std=c99 $? -g -o $@
@@ -152,9 +161,9 @@ test: $(EXAMPLES_LOG)
 
 
 clean:
-	rm -rf *.log *.bin *.tcl *.proj logs/* hls/*
+	rm -rf *.o *.log *.bin *.tcl *.proj logs/* hls/*
 
 .PHONY: clean hls test
 
 # Prevent make from deleting the .bin intermediate files
-.PRECIOUS: %.bin
+.PRECIOUS: %.bin %.tcl block_fir-top.bin fir-top.bin
