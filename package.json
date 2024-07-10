@@ -1,6 +1,6 @@
 {
   "name": "pp4fpgas",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Parallel Programming for FPGAs by Kastner et al",
   "main": "index.js",
   "directories": {

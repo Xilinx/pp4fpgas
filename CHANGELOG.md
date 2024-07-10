@@ -1,3 +1,19 @@
+## [1.1.1](https://gitenterprise.xilinx.com/mpettigr/pp4fpgas/compare/v1.1.0...v1.1.1) (2024-07-10)
+
+
+### Bug Fixes
+
+* add block_mm-top.cpp ([98085ee](https://gitenterprise.xilinx.com/mpettigr/pp4fpgas/commit/98085ee903cf6d14f9ce53994f05bc5e9efe88fe))
+* add complex_fir-top.cpp test / use fir() with fir.h ([7cdc9dc](https://gitenterprise.xilinx.com/mpettigr/pp4fpgas/commit/7cdc9dc0e038df2d69701927a1845e038d24ecd4))
+* add fir11_initial.c testbench ([f4518a0](https://gitenterprise.xilinx.com/mpettigr/pp4fpgas/commit/f4518a073097c45bf62079f857b35991770bef19))
+* add synth/impl freq support / rename yml file ([7477364](https://gitenterprise.xilinx.com/mpettigr/pp4fpgas/commit/74773644811a9de79383f25889bdee42064bcac1))
+* fix vitis path detection / set CC=gcc / support mixed C/C++ compile ([5dc07fb](https://gitenterprise.xilinx.com/mpettigr/pp4fpgas/commit/5dc07fb80b4b890dd47cbb18de3d96910b9c0be0))
+* increase to ap_fixed<16,2> to increase CORDIC accuracy ([c1b434f](https://gitenterprise.xilinx.com/mpettigr/pp4fpgas/commit/c1b434f8b130bc9333c1d374298f9c4d4d06f160))
+* initialize variables / remove spurious loop ([9879f92](https://gitenterprise.xilinx.com/mpettigr/pp4fpgas/commit/9879f92ce430237e17b1b88d1dab75a100aa6f9d))
+* initialize y variable ([34c3d2b](https://gitenterprise.xilinx.com/mpettigr/pp4fpgas/commit/34c3d2b8246c9404a918321b33f743a236266edc))
+* make cordic testbenches self-checking ([4d9f0c8](https://gitenterprise.xilinx.com/mpettigr/pp4fpgas/commit/4d9f0c8f689ef5d2791ceb075c2705d8a9ef8c4d))
+* uninitialized out[0] and spurious A variable ([64b134f](https://gitenterprise.xilinx.com/mpettigr/pp4fpgas/commit/64b134f28591659ebff47ad33ee85515fe751ae2))
+
 # [1.1.0](https://gitenterprise.xilinx.com/mpettigr/pp4fpgas/compare/v1.0.3...v1.1.0) (2024-07-08)
 
 
