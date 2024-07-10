@@ -31,6 +31,7 @@ int flag[4];
 	element_left[i] = UB[i] - LB[i];
 	element_done[i] = 0;
 	flag[i] = 0;
+	y[i] = 0;
     // std::cout << "starting row " << i << " from " << LB[i] << " to " << UB[i] << "\n";
  }
 
