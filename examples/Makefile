@@ -51,7 +51,7 @@ video_simple-top.log: video_simple-top.bin
 	./$< $(INPUTFILE) video_simple.bmp > $@
 
 video_2dfilter-top.log: video_2dfilter-top.bin
-	./$< $(INPUTFILE) video_2dfilter.bmp > $@	
+	./$< $(INPUTFILE) test_20x20_filtered_opencv.bmp video_2dfilter.bmp > $@	
 
 video_2dfilter_boundary_condition-top.log: video_2dfilter_boundary_condition-top.bin
 	./$< $(INPUTFILE) video_2dfilter_boundary_condition.bmp > $@	
@@ -74,7 +74,7 @@ complex_fir-top.bin: complex_fir-top.o complex_fir.o fir.o
 	LD_LIBRARY_PATH=$(LD_LIBRARY_PATH) $(CXX) -I$(VHLS)/include -g -o $@ $^
 
 %-top.bin: %-top.c %.c bitmap.c
-	LD_LIBRARY_PATH=$(LD_LIBRARY_PATH) $(CC) -I$(VHLS)/include -std=c99 $? -g -o $@
+	LD_LIBRARY_PATH=$(LD_LIBRARY_PATH) $(CC) -I$(VHLS)/include -std=c99 $^ -g -o $@
 
 %-top.bin: %-top.cpp %.cpp
 	LD_LIBRARY_PATH=$(LD_LIBRARY_PATH) $(CXX) -I$(VHLS)/include $? -g -o $@
