@@ -1,3 +1,14 @@
+## [1.1.2](https://gitenterprise.xilinx.com/mpettigr/pp4fpgas/compare/v1.1.1...v1.1.2) (2024-07-16)
+
+
+### Bug Fixes
+
+* add borderType support to video_2dfilter_opencv.cpp ([16a2f5f](https://gitenterprise.xilinx.com/mpettigr/pp4fpgas/commit/16a2f5fc9239f52fa5ff81dee9f08aaef01ea96e))
+* add self-check bench for boundary condition 2d filter ([d58e41e](https://gitenterprise.xilinx.com/mpettigr/pp4fpgas/commit/d58e41e0d096aa43032ec88f9de4140511416941))
+* add self-checking support on prefixsum testbenches ([b61ea8e](https://gitenterprise.xilinx.com/mpettigr/pp4fpgas/commit/b61ea8e59b14ece12c3c47607971a8f6e32fdd87))
+* add self-checking support to video_2dfilter-top.c ([c67a939](https://gitenterprise.xilinx.com/mpettigr/pp4fpgas/commit/c67a9396c72ea17f8064d6e3ebf0d51e183861e5))
+* add support file to generate reference test image ([a9b9828](https://gitenterprise.xilinx.com/mpettigr/pp4fpgas/commit/a9b9828518906ad38dfa4ff41efea526e1c6b6f1))
+
 ## [1.1.1](https://gitenterprise.xilinx.com/mpettigr/pp4fpgas/compare/v1.1.0...v1.1.1) (2024-07-10)
 
 
