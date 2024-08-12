@@ -45,7 +45,6 @@ examples/*.tcl
 *.pyc
 
 .vscode/
-node_modules/
 
 examples/hls/
 
@@ -54,9 +53,8 @@ examples/hls/
 examples/*.out.dat
 examples/out.*.dat
 examples/out.dat
-
 examples/video*.bmp
 
-
-
 scripts/tests/___summary_all_header.adoc
+
+node_modules/
