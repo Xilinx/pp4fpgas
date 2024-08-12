@@ -1,3 +1,11 @@
+## [1.1.3](https://gitenterprise.xilinx.com/mpettigr/pp4fpgas/compare/v1.1.2...v1.1.3) (2024-08-12)
+
+
+### Bug Fixes
+
+* add self-check on video linebuffer variant tbs ([5443703](https://gitenterprise.xilinx.com/mpettigr/pp4fpgas/commit/54437032011a6b4953d1554878240b11de1cf72c))
+* clean up semantic-release support ([57eb3c6](https://gitenterprise.xilinx.com/mpettigr/pp4fpgas/commit/57eb3c6ac19d2a206eab9dde85c7aeb901a63f4e))
+
 ## [1.1.2](https://gitenterprise.xilinx.com/mpettigr/pp4fpgas/compare/v1.1.1...v1.1.2) (2024-07-16)
 
 
