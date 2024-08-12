@@ -1,3 +1,10 @@
+## [1.1.4](https://gitenterprise.xilinx.com/mpettigr/pp4fpgas/compare/v1.1.3...v1.1.4) (2024-08-12)
+
+
+### Bug Fixes
+
+* clean up Makefile ([f5efc3c](https://gitenterprise.xilinx.com/mpettigr/pp4fpgas/commit/f5efc3c2c7a102c29790343f93f7466d6fc6ed24))
+
 ## [1.1.3](https://gitenterprise.xilinx.com/mpettigr/pp4fpgas/compare/v1.1.2...v1.1.3) (2024-08-12)
 
 
