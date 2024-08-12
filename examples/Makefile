@@ -45,7 +45,7 @@ HLS_CONFIG_FILE = $(CURDIR)/__hls_config__versal500__.ini
 
 $(warning $(EXAMPLES_LOG))
 
-INPUTFILE=BBC_HD_test_1920x1080.bmp
+#INPUTFILE=BBC_HD_test_1920x1080.bmp
 INPUTFILE=test_20x20.bmp
 INPUTFILE_GOLDEN_REF=test_20x20_filtered_opencv.bmp
 INPUTFILE_GOLDEN_REF_BOUND_COND=test_20x20_filtered_opencv_border_replicate.bmp
@@ -59,13 +59,13 @@ video_2dfilter_boundary_condition-top.log: video_2dfilter_boundary_condition-top
 	./$< $(INPUTFILE) $(INPUTFILE_GOLDEN_REF_BOUND_COND) video_2dfilter_boundary_condition.bmp > $@	
 
 video_2dfilter_linebuffer-top.log: video_2dfilter_linebuffer-top.bin
-	./$< $(INPUTFILE) video_2dfilter_linebuffer.bmp > $@	
+	./$< $(INPUTFILE) $(INPUTFILE_GOLDEN_REF) video_2dfilter_linebuffer.bmp > $@	
 
 video_2dfilter_linebuffer_extended-top.log: video_2dfilter_linebuffer_extended-top.bin
-	./$< $(INPUTFILE) video_2dfilter_linebuffer_extended.bmp > $@
+	./$< $(INPUTFILE) $(INPUTFILE_GOLDEN_REF) video_2dfilter_linebuffer_extended.bmp > $@
 
 video_2dfilter_linebuffer_extended_constant-top.log: video_2dfilter_linebuffer_extended_constant-top.bin
-	./$< $(INPUTFILE) video_2dfilter_linebuffer_extended_constant.bmp > $@
+	./$< $(INPUTFILE) $(INPUTFILE_GOLDEN_REF) video_2dfilter_linebuffer_extended_constant.bmp > $@
 
 %.o: %.c
 	$(CC) -I$(VHLS)/include -c $< -o $@
