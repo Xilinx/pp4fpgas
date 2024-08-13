@@ -1,3 +1,10 @@
+## [1.1.5](https://gitenterprise.xilinx.com/mpettigr/pp4fpgas/compare/v1.1.4...v1.1.5) (2024-08-13)
+
+
+### Bug Fixes
+
+* fix author name and keywords in package.json ([7f63f66](https://gitenterprise.xilinx.com/mpettigr/pp4fpgas/commit/7f63f665da7120002dd491a3b988f2f0ccbebb1f))
+
 ## [1.1.4](https://gitenterprise.xilinx.com/mpettigr/pp4fpgas/compare/v1.1.3...v1.1.4) (2024-08-12)
 
 
