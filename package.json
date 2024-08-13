@@ -378,9 +378,13 @@
     "release": "semantic-release --no-ci",
     "prepare": "husky install"
   },
-  "keywords": [],
-  "author": "Mark Pettigrew <mark.pettigrew@amd.com>",
-  "license": "none",
+  "keywords": [
+    "HLS",
+    "fpga",
+    "Vitis"
+  ],
+  "author": "Ryan Kastner",
+  "license": "see LICENSE IN LICENSE",
   "private": "true",
   "devDependencies": {
     "@commitlint/cli": "^19.4.0",
