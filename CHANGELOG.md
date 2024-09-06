@@ -1,3 +1,10 @@
+## [1.1.6](https://gitenterprise.xilinx.com/mpettigr/pp4fpgas/compare/v1.1.5...v1.1.6) (2024-09-06)
+
+
+### Bug Fixes
+
+* remove unnecessary .npmrc ([35b91d7](https://gitenterprise.xilinx.com/mpettigr/pp4fpgas/commit/35b91d74abc769f0b5437e19f9bf4309d2873700))
+
 ## [1.1.5](https://gitenterprise.xilinx.com/mpettigr/pp4fpgas/compare/v1.1.4...v1.1.5) (2024-08-13)
 
 
