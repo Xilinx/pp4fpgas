@@ -27,5 +27,7 @@ clean:
 #
 # If you want to test the release process without pushing to the remote
 # repository, use `npx semantic-release -d`.
+#
+# NOTE: If you don't have any local modules installed, run 'npm install'.
 manual-release:
 	npx semantic-release --no-ci
