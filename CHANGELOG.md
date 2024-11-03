@@ -1,3 +1,11 @@
+## [1.1.7](https://github.com/mpettigr/pp4fpgas/compare/v1.1.6...v1.1.7) (2024-11-03)
+
+
+### Bug Fixes
+
+* clean up makefile and add release branch ([1e4d691](https://github.com/mpettigr/pp4fpgas/commit/1e4d69192d623cd2b03eb5d47ff3b45d085bb1d7))
+* VHLS path to use Vitis HLS v2024.2 ([714d652](https://github.com/mpettigr/pp4fpgas/commit/714d652dbdcc3a2055d84d3303472c05443494d1))
+
 ## [1.1.6](https://gitenterprise.xilinx.com/mpettigr/pp4fpgas/compare/v1.1.5...v1.1.6) (2024-09-06)
 
 
