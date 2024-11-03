@@ -9,7 +9,7 @@ USE_VITIS=1
 ifeq ($(USE_VITIS),1)
 VITIS_COMPILER := $(shell dirname $(shell which vitis_hls))
 
-VHLS = $(VITIS_COMPILER)/..
+VHLS = $(VITIS_COMPILER)/../../../Vitis/2024.2
 HLS_COMPILER=vitis-run --mode hls --tcl 
 else
 VHLS := $(shell vivado_hls -r)
