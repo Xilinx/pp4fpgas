@@ -27,10 +27,8 @@ EXAMPLES_LOG += $(patsubst %.cpp,%.log,$(EXAMPLES_CPP))
 #CXX = $(VHLS)/lnx64/tools/gcc/bin/g++
 #CC = $(VHLS)/lnx64/tools/clang/bin/clang 
 #CXX = $(VHLS)/lnx64/tools/clang/bin/clang++
-#CC = gcc -I../../../spdlog/include -L../../../spdlog/build -lspdlog
-SPDLOG := -I../../../spdlog/include -L../../../spdlog/build -lspdlog
-CC = gcc $(SPDLOG)
-CXX = g++ $(SPDLOG)
+CC = gcc
+CXX = g++
 
 # insert new LD path to the LD_LIBRARY_PATH if it is not already there
 # 
@@ -38,7 +36,7 @@ LD_PATH_NEW = /usr/lib/x86_64-linux-gnu
 LD_LIBRARY_PATH := $(shell echo $(value LD_LIBRARY_PATH) | grep -q $(LD_PATH_NEW) || echo $(LD_PATH_NEW):)$(value LD_LIBRARY_PATH)
 
 #GEN_TCL = $(CURDIR)/../scripts/gen_hls_csynth_script.py
-GEN_TCL = $(CURDIR)/../scripts/gen_hls_impl_script.py
+GEN_TCL = $(CURDIR)/../scripts/gen_hls_runner_script.py
 
 #HLS_CONFIG_FILE = $(CURDIR)/__hls_config__.ini
 HLS_CONFIG_FILE = $(CURDIR)/__hls_config__versal500__.ini
@@ -138,10 +136,10 @@ CXX_HLS_TARGET_FILES = \
 	spmv2_restructured.cpp \
 	spmv_unrolled.cpp
 
-HLS_TARGETS = $(patsubst %.c,%.proj,$(CC_HLS_TARGET_FILES))
-HLS_TARGETS += $(patsubst %.cpp,%.proj,$(CXX_HLS_TARGET_FILES))
+HLS_TARGETS = $(patsubst %.c,%.comp,$(CC_HLS_TARGET_FILES))
+HLS_TARGETS += $(patsubst %.cpp,%.comp,$(CXX_HLS_TARGET_FILES))
 
-%.proj: %.tcl
+%.comp: %.tcl
 #	vivado_hls -f $?
 	$(HLS_COMPILER) $? || (echo "$(HLS_COMPILER) $? failed $$?"; exit 0)
 
@@ -161,7 +159,7 @@ test: $(EXAMPLES_LOG)
 
 
 clean:
-	rm -rf *.o *.log *.bin *.tcl *.proj logs/* hls/*
+	rm -rf *.o *.log *.bin *.tcl *.comp logs/* hls/*
 
 .PHONY: clean hls test
 
