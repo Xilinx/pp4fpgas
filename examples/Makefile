@@ -7,13 +7,48 @@
 USE_VITIS=1
 
 ifeq ($(USE_VITIS),1)
-VITIS_COMPILER := $(shell dirname $(shell which vitis_hls))
 
-VHLS = $(VITIS_COMPILER)/../../../Vitis/2024.2
+# Extract the first "YYYY.m" pattern from the path of the vitis-run executable
+VERSION := $(shell which vitis-run | grep -oP '(?<=Vitis/)[0-9]{4}.[0-9]+' | head -n 1)
+
+# If the version is not found, print an error message and exit
+ifeq ($(VERSION),)
+$(error Vitis version not found. Please source the Vitis settings64.sh file)
+endif
+$(info Vitis version is $(VERSION))
+
+# Parse MAJOR (year) and MINOR (month) from the version string
+MAJOR := $(shell echo $(VERSION) | cut -d'.' -f1)
+MINOR := $(shell echo $(VERSION) | cut -d'.' -f2)
+
+$(info Vitis version is MAJOR: $(MAJOR) MINOR: $(MINOR))
+
+VITIS_COMPILER := $(shell dirname $(shell which vitis-run))
 HLS_COMPILER=vitis-run --mode hls --tcl 
+
+# Check if the version is less than or equal to 2024.1, and use the Vitis_HLS path for include files
+ifeq ($(shell [ $$(echo $(MAJOR)) -lt 2024 ] || { [ $$(echo $(MAJOR)) -eq 2024 ] && [ $$(echo $(MINOR)) -le 1 ] ; } && echo true),true)
+$(info Version $(VERSION) is ≤ 2024.1)
+
+VHLS = $(VITIS_COMPILER)/../../../Vitis_HLS/$(VERSION)
+
 else
+# If the version is greater than 2024.1, use the Vitis path for include files
+$(info Version $(VERSION) is > 2024.1)
+
+VHLS = $(VITIS_COMPILER)/../../../Vitis/$(VERSION)
+
+endif
+
+HLS_CONFIG_FILE = $(CURDIR)/__hls_config__versal500__.ini
+
+else
+
 VHLS := $(shell vivado_hls -r)
 HLS_COMPILER=vivado_hls -f
+
+HLS_CONFIG_FILE = $(CURDIR)/__hls_config__.ini
+
 endif
 
 EXAMPLES = $(shell ls *-top.c)
