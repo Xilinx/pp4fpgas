@@ -1,5 +1,15 @@
 {
-  "branches": ["master", "mp-hls_book_update_effort", "amd_vivado2vitis-hls"],
+  "branches": [
+    "next",  
+    {  
+      "name": "release/*",  
+      "prerelease": false  
+    },  
+    {  
+      "name": "master",  
+      "prerelease": false  
+    }  
+  ],  
   "plugins": [
     "@semantic-release/commit-analyzer",
     "@semantic-release/release-notes-generator",
