@@ -1,3 +1,11 @@
+## [1.1.8](https://gitenterprise.xilinx.com/mpettigr/pp4fpgas/compare/v1.1.7...v1.1.8) (2025-02-26)
+
+
+### Bug Fixes
+
+* merge github.com/mpettigr/pp4fpgas/amd_vivado2vitis-hls ([38a3486](https://gitenterprise.xilinx.com/mpettigr/pp4fpgas/commit/38a34860c329b728e66223a4ff2efdfe5f0c33ed))
+* support vitis hls <= v24.1 and >=v24.2 include file ([6857057](https://gitenterprise.xilinx.com/mpettigr/pp4fpgas/commit/68570571b0626f45f1056c77ef726a112232f2fb))
+
 ## [1.1.7](https://github.com/mpettigr/pp4fpgas/compare/v1.1.6...v1.1.7) (2024-11-03)
 
 
