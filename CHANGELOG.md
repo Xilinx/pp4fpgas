@@ -1,3 +1,10 @@
+## [1.1.10](https://gitenterprise.xilinx.com/mpettigr/pp4fpgas/compare/v1.1.9...v1.1.10) (2025-02-26)
+
+
+### Bug Fixes
+
+* add create-release-branch.sh / Makefile ([d63ca3d](https://gitenterprise.xilinx.com/mpettigr/pp4fpgas/commit/d63ca3d136444ca08f769a3f805170ce5254b8ff))
+
 ## [1.1.9](https://gitenterprise.xilinx.com/mpettigr/pp4fpgas/compare/v1.1.8...v1.1.9) (2025-02-26)
 
 
