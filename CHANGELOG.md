@@ -1,3 +1,10 @@
+## [1.1.11](https://gitenterprise.xilinx.com/mpettigr/pp4fpgas/compare/v1.1.10...v1.1.11) (2025-02-26)
+
+
+### Bug Fixes
+
+* make create-release-branch.sh executable ([564f0a8](https://gitenterprise.xilinx.com/mpettigr/pp4fpgas/commit/564f0a86d583dab8bdf0274305366698f9e106da))
+
 ## [1.1.10](https://gitenterprise.xilinx.com/mpettigr/pp4fpgas/compare/v1.1.9...v1.1.10) (2025-02-26)
 
 
