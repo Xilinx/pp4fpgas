@@ -1,3 +1,10 @@
+## [1.1.9](https://gitenterprise.xilinx.com/mpettigr/pp4fpgas/compare/v1.1.8...v1.1.9) (2025-02-26)
+
+
+### Bug Fixes
+
+* setup .releaserc for releases/* on next branch ([78f89d6](https://gitenterprise.xilinx.com/mpettigr/pp4fpgas/commit/78f89d642e381ee1a324749608d00bea5c88b44b))
+
 ## [1.1.8](https://gitenterprise.xilinx.com/mpettigr/pp4fpgas/compare/v1.1.7...v1.1.8) (2025-02-26)
 
 
