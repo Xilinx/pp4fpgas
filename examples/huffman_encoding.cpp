@@ -18,7 +18,10 @@ void huffman_encoding(
     filter(symbol_histogram, filtered, &n);
     sort(filtered, n, sorted);
 
-    ap_uint<SYMBOL_BITS> length_histogram[TREE_DEPTH];
+    // NOTE: length_histogram[] *must* be initialized to 0 since it has: 1) automatic storage duration, 
+    // 2) compute_bit_length function may not set length_histogram[i] for all i, and 
+    // 3)  codewords_in_tree += length_histogram[i]; may add an uninitialized value to codewords_in_tree afterwards.
+    ap_uint<SYMBOL_BITS> length_histogram[TREE_DEPTH] = {};
     ap_uint<SYMBOL_BITS> truncated_length_histogram1[TREE_DEPTH];
     ap_uint<SYMBOL_BITS> truncated_length_histogram2[TREE_DEPTH];
     CodewordLength symbol_bits[INPUT_SYMBOL_SIZE];
@@ -51,7 +54,7 @@ void huffman_encoding(
     assert(codewords_in_tree == n);
 #endif
 
-        truncate_tree(length_histogram, truncated_length_histogram1, truncated_length_histogram2);
+    truncate_tree(length_histogram, truncated_length_histogram1, truncated_length_histogram2);
     canonize_tree(sorted_copy2, n, truncated_length_histogram1, symbol_bits);
     create_codeword(symbol_bits, truncated_length_histogram2, encoding);
 
