@@ -3,7 +3,7 @@
 //
 // Modifications Copyright (C) 2025 Advanced Micro Devices, Inc. All rights reserved.
 
-#include "merge_sort.h"
+#include "restructured_merge_sort.h"
 
 //divide i into two streams. Every two elements in each of the streams is sorted.
 void split(DTYPE i[SIZE], hls::stream<DTYPE>& out1, hls::stream<DTYPE>& out2)
@@ -39,10 +39,10 @@ void split(DTYPE i[SIZE], hls::stream<DTYPE>& out1, hls::stream<DTYPE>& out2)
 //sets indicates the number of consecutive elements in each stream that will be in sorted order after function completes
 void subset_merge(hls::stream<DTYPE>& in1, hls::stream<DTYPE>& in2, hls::stream<DTYPE>& out1, hls::stream<DTYPE>& out2, const int sets){
     #pragma HLS function_instantiate variable=sets //each instance of this function with a different sets value is independently optimized.
-	DTYPE a,b;
+	DTYPE a = 0,b = 0;
 	INDEX_TYPE subIndex1 = 1, subIndex2 = 1;
-    in1.read(a);
-    in2.read(b);
+    if (!in1.empty()) in1.read(a);
+    if (!in2.empty()) in2.read(b);
 	for(int j = 0; j < HALF_SIZE; j += sets) {
 
 		//this first for loop always writes to out1
@@ -54,7 +54,7 @@ void subset_merge(hls::stream<DTYPE>& in1, hls::stream<DTYPE>& in2, hls::stream<
 			if(subIndex1 == j + (sets >> 1) + 1)
 			{
 				out1.write(b);
-				in2.read(b);
+				if (!in2.empty()) in2.read(b);
 				subIndex2++;
 
 			}
@@ -62,19 +62,19 @@ void subset_merge(hls::stream<DTYPE>& in1, hls::stream<DTYPE>& in2, hls::stream<
 			else if (subIndex2 == j + (sets >> 1) + 1)
 			{
 				out1.write(a);
-				in1.read(a);
+				if (!in1.empty()) in1.read(a);
 				subIndex1++;
 			}
 			else if (a < b)
 			{
 				out1.write(a);
-				in1.read(a);
+				if (!in1.empty()) in1.read(a);
 				subIndex1++;
 			}
 			else
 			{
 				out1.write(b);
-				in2.read(b);
+				if (!in2.empty()) in2.read(b);
 				subIndex2++;
 			}
 		}
@@ -89,26 +89,26 @@ void subset_merge(hls::stream<DTYPE>& in1, hls::stream<DTYPE>& in2, hls::stream<
 			if(subIndex1 == j + sets + 1)
 			{
 				out2.write(b);
-				in2.read(b);
+				if (!in2.empty()) in2.read(b);
 				subIndex2++;
 			}
 			//special case: we have already processed all the elements from in2. Write/Read from in1
 			else if (subIndex2 == j + sets + 1)
 			{
 				out2.write(a);
-				in1.read(a);
+				if (!in1.empty()) in1.read(a);
 				subIndex1++;
 			}
 			else if (a < b)
 			{
 				out2.write(a);
-				in1.read(a);
+				if (!in1.empty()) in1.read(a);
 				subIndex1++;
 			}
 			else
 			{
 				out2.write(b);
-				in2.read(b);
+				if (!in2.empty()) in2.read(b);
 				subIndex2++;
 			}
 		}
@@ -119,10 +119,10 @@ void subset_merge(hls::stream<DTYPE>& in1, hls::stream<DTYPE>& in2, hls::stream<
 
 void merge(hls::stream<DTYPE>& in1, hls::stream<DTYPE>& in2, DTYPE out[SIZE])
 {
-	DTYPE a, b;
+	DTYPE a = 0, b = 0;
 	INDEX_TYPE subIndex1 = 1, subIndex2 = 1;
-	in1.read(a);
-	in2.read(b);
+	if (!in1.empty()) in1.read(a);
+	if (!in2.empty()) in2.read(b);
 
 	//this is the final merge
 	//the elements in in1 and in2 are in sorted order.
@@ -138,7 +138,7 @@ void merge(hls::stream<DTYPE>& in1, hls::stream<DTYPE>& in2, DTYPE out[SIZE])
 		if(subIndex1 == HALF_SIZE + 1)
 		{
 			out[i] = b;
-			in2.read(b);
+			if (!in2.empty()) in2.read(b);
 			subIndex2++;
 		}
 		//special case: we have gone through all the elements in in2
@@ -146,7 +146,7 @@ void merge(hls::stream<DTYPE>& in1, hls::stream<DTYPE>& in2, DTYPE out[SIZE])
 		else if (subIndex2 == HALF_SIZE + 1)
 		{
 			out[i] = a;
-			in1.read(a);
+			if (!in1.empty()) in1.read(a);
 			subIndex1++;
 		}
 		//write a to output array if it is smaller of two elements.
@@ -154,7 +154,7 @@ void merge(hls::stream<DTYPE>& in1, hls::stream<DTYPE>& in2, DTYPE out[SIZE])
 		else if (a < b)
 		{
 			out[i] = a;
-			in1.read(a);
+			if (!in1.empty()) in1.read(a);
 			subIndex1++;
 		}
 		//b is smaller than (or equal to) a.
@@ -162,7 +162,7 @@ void merge(hls::stream<DTYPE>& in1, hls::stream<DTYPE>& in2, DTYPE out[SIZE])
 		else
 		{
 			out[i] = b;
-			in2.read(b);
+			if (!in2.empty()) in2.read(b);
 			subIndex2++;
 		}
 	}
