@@ -42,7 +42,7 @@ void merge_sort_parallel(DTYPE A[SIZE], DTYPE B[SIZE]) {
 	merge_arrays(A, width, temp[0]);
 	width *= 2;
 
-	for (int stage = 1; stage < STAGES-1; stage++) {
+	merge_sort_parallel_loop_1: for (int stage = 1; stage < STAGES-1; stage++) {
 #pragma HLS unroll
 		merge_arrays(temp[stage-1], width, temp[stage]);
 		width *= 2;

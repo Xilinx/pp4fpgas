@@ -4,7 +4,7 @@ void histogram(int in[INPUT_SIZE], int hist[VALUE_SIZE]) {
   int i, val;
   int old = in[0];
   #pragma HLS DEPENDENCE variable=hist intra RAW false
-  for(i = 0; i < INPUT_SIZE; i++) {
+  histogram_loop_1: for(i = 0; i < INPUT_SIZE; i++) {
     #pragma HLS PIPELINE II=1
     val = in[i];
     if(old == val) {
