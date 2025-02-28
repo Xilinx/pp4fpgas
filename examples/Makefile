@@ -1,11 +1,20 @@
 # The original work is licensed under the Creative Commons Attribution 4.0 International License.
 # See https://creativecommons.org/licenses/by/4.0/ or refer to the LICENSE file for details.
-#
+# 
 # Modifications Copyright (C) 2025 Advanced Micro Devices, Inc. All rights reserved.
-
+#
+# To run, cosim 
+# COSIM="--cosim" make hls
+#
+# To run, impl
+# IMPL="--impl" make hls
 
 # select the HLS compiler to use (vivado_hls or vitis)
-USE_VITIS=1
+USE_VITIS ?= 1
+CSIM ?=
+COSIM ?=
+CSYNTH ?=
+IMPL ?=
 
 ifeq ($(USE_VITIS),1)
 
@@ -81,11 +90,7 @@ CXX = g++
 LD_PATH_NEW = /usr/lib/x86_64-linux-gnu
 LD_LIBRARY_PATH := $(shell echo $(value LD_LIBRARY_PATH) | grep -q $(LD_PATH_NEW) || echo $(LD_PATH_NEW):)$(value LD_LIBRARY_PATH)
 
-#GEN_TCL = $(CURDIR)/../scripts/gen_hls_csynth_script.py
-GEN_TCL = $(CURDIR)/../scripts/gen_hls_runner_script.py
-
-#HLS_CONFIG_FILE = $(CURDIR)/__hls_config__.ini
-HLS_CONFIG_FILE = $(CURDIR)/__hls_config__versal500__.ini
+GEN_TCL = $(CURDIR)/../scripts/gen_hls_runner_script.py --verbose $(CSIM) $(CSYNTH) $(COSIM) $(IMPL)
 
 $(warning $(EXAMPLES_LOG))
 
@@ -186,7 +191,6 @@ HLS_TARGETS = $(patsubst %.c,%.comp,$(CC_HLS_TARGET_FILES))
 HLS_TARGETS += $(patsubst %.cpp,%.comp,$(CXX_HLS_TARGET_FILES))
 
 %.comp: %.tcl
-#	vivado_hls -f $?
 	$(HLS_COMPILER) $? || (echo "$(HLS_COMPILER) $? failed $$?"; exit 0)
 
 %.tcl: %.c
