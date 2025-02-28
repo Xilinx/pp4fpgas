@@ -36,6 +36,10 @@ main.pdf
 # hls projects
 **/*.proj/
 **/*.comp/
+**/*.prj/
+
+# vitis ide
+**/_ide/
 
 # ignore any python virtual environments
 **/.venv/
