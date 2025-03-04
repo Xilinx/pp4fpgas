@@ -1,6 +1,5 @@
 #include "histogram_parallel.h"
 void histogram_map(int in[INPUT_SIZE/2], int hist[VALUE_SIZE]) {
-#pragma HLS DEPENDENCE variable=hist intra RAW false
     for(int i = 0; i < VALUE_SIZE; i++) {
 #pragma HLS PIPELINE II=1
         hist[i] = 0;
@@ -9,6 +8,7 @@ void histogram_map(int in[INPUT_SIZE/2], int hist[VALUE_SIZE]) {
   int acc = 0;
   for(int i = 0; i < INPUT_SIZE/2; i++) {
 #pragma HLS PIPELINE II=1
+#pragma HLS DEPENDENCE variable=hist intra RAW false
     int val = in[i];
     if(old == val) {
       acc = acc + 1;
