@@ -202,8 +202,9 @@ HLS_TARGETS += $(patsubst %.cpp,%.comp,$(CXX_HLS_TARGET_FILES))
 %.log: %.bin
 	-./$< > $@ || (echo "./$< > $@ failed $$?"; exit 1)
 
-
-hls: $(HLS_TARGETS)
+hls:
+csynth:
+	@CSYNTH="--csynth" $(MAKE) $(HLS_TARGETS)
 
 test: $(EXAMPLES_LOG)
 
