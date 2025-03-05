@@ -1,19 +1,74 @@
 # HLS Book Examples Subdirectory README
 
-Use Makefile to run tests and csynth_design compile all (compilable) examples
+Use Makefile to run tests and various HLS stages for all examples.
 
-To run tests:
-
-* cd examples
-* make clean
-* grep -iH ^\s*error *.log
-**  to check if there are any errors
-
-To run Vitis HLS (csynth) on all HLS components:
+## Software Tests
 
 * cd examples
 * make clean
-* make hls
-* find -wholename "*.comp/hls/hls.log" -exec grep -i 'error:' {} +
-** This scans for "ERROR:" lines in all of the csynth compiled HLS components. This should return with no output.
-p.s. To just get the warm fuzzy that this command works change 'error:' with 'warning:' and rerun.
+* make test
+* make test_verify
+  * This checks for errors in all test logs automatically
+
+NOTE: make test runs with g++ rather than csim_design.
+
+## Vitis HLS Synthesis
+
+* cd examples
+* make clean
+* make csynth
+* make csynth_verify
+  * This checks for errors in all of the HLS csynth logs automatically
+
+## C Simulation
+
+* cd examples
+* make clean
+* make csim
+* make csim_verify
+  * This checks for errors in C simulation logs automatically
+
+## Co-Simulation
+
+* cd examples
+* make clean
+* make cosim
+* make cosim_verify
+  * This checks for errors in co-simulation logs automatically
+
+## Complete Workflow Example
+
+```bash
+cd examples
+make clean
+make test
+make test_verify
+make csim
+make csim_verify
+make csynth
+make csynth_verify
+make cosim
+make cosim_verify
+```
+
+## Verification Commands
+
+Each *_verify target runs specific checks:
+
+* test_verify: Finds and reports errors in software test logs
+* csynth_verify: Finds and reports errors in HLS synthesis logs
+* csim_verify: Finds and reports errors in C simulation logs
+* cosim_verify: Finds and reports errors in co-simulation logs
+
+If no errors are found, these commands will report "No errors found in [type] logs".
+
+## Manual Verification
+
+You can also manually check logs:
+
+* Software test logs: `grep -q "ERROR" *.log`
+* HLS synthesis logs: `find -wholename "*.comp/hls/hls.log" -exec grep -i 'error:' {} +`
+* C simulation logs: `find . -path "*/csim/*/hls*.log" -o -path "*/csim/*.log" -exec grep -i 'error:' {} +`
+* Co-simulation logs: `find . -path "*.comp/hls/sim/verilog/xsim.log" -exec grep -i 'error:' {} +`
+
+To verify these commands work, try replacing 'error:' with 'warning:' and rerun to see typical output.
