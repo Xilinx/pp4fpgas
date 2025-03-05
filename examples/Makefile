@@ -206,13 +206,66 @@ hls:
 csynth:
 	@CSYNTH="--csynth" $(MAKE) $(HLS_TARGETS)
 
+hls_verify:
+csynth_verify:
+	@echo "Checking for errors in HLS csynth logs..."
+	@find -wholename "*.comp/hls/hls.log" -exec grep -i 'error:' {} \; > hls_csynth_errors.txt || true > /dev/null 2>&1
+	@if [ -s hls_csynth_errors.txt ]; then \
+    	echo "Found errors in HLS logs:"; \
+    	cat hls_csynth_errors.txt; \
+        exit 1; \
+    else \
+        echo "No errors found in HLS csynth logs"; \
+    fi
+	@rm -f hls_csynth_errors.txt
+
 test: $(EXAMPLES_LOG)
+
+test_verify:
+	@echo "Checking for errors in test logs..."
+	@for f in $(EXAMPLES_LOG); do \
+		if grep -q "ERROR" $$f; then \
+			echo "Found errors in $$f"; \
+			exit 1; \
+		fi; \
+	done
+	@echo "No errors found in test logs"
+
+csim:
+	@CSIM="--csim" $(MAKE) $(HLS_TARGETS)
+
+csim_verify:
+	@echo "Checking for errors in HLS csim logs..."
+	@find . -path "*/csim/*/hls*.log" -o -path "*/csim/*.log" -exec grep -i 'error:' {} \; > hls_csim_errors.txt 2>/dev/null || true
+	@if [ -s hls_csim_errors.txt ]; then \
+    	echo "Found errors in HLS logs:"; \
+    	cat hls_csim_errors.txt; \
+    	exit 1; \
+	else \
+    	echo "No errors found in HLS csim logs"; \
+	fi
+	@rm -f hls_csim_errors.txt
+
+cosim:
+	@COSIM="--cosim" $(MAKE) $(HLS_TARGETS)
+
+cosim_verify:
+	@echo "Checking for errors in HLS cosim logs..."
+	@find . -path "*.comp/hls/sim/verilog/xsim.log" -exec grep -i 'error:' {} \; > hls_cosim_errors.txt 2>/dev/null || true
+	@if [ -s hls_cosim_errors.txt ]; then \
+    	echo "Found errors in HLS logs:"; \
+    	cat hls_cosim_errors.txt; \
+    	exit 1; \
+	else \
+    	echo "No errors found in HLS cosim logs"; \
+	fi
+	@rm -f hls_cosim_errors.txt
 
 
 clean:
 	rm -rf *.o *.log *.bin *.tcl *.comp logs/* hls/*
 
-.PHONY: clean hls test
+.PHONY: clean hls test csim_verify csim csynth
 
 # Prevent make from deleting the .bin intermediate files
 .PRECIOUS: %.bin %.tcl block_fir-top.bin fir-top.bin
