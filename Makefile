@@ -12,6 +12,8 @@ all: main.pdf
 # Docker image available at https://hub.docker.com/r/texlive/texlive/
 
 # NOTE: You *must* put the path to your texlive installation here.
+#
+# TODO: Refactor to use Texlive docker image instead.
 TEXLIVE_BINDIR=/wrk/xsjhdnobkup2/mpettigr/projects_nobkup/texlive/texlive/install-tl-20240625/./texlive/2024/bin/x86_64-linux
 PDFLATEX=PATH=$(TEXLIVE_BINDIR):$$PATH $(TEXLIVE_BINDIR)/pdflatex
 BIBTEX=PATH=$(TEXLIVE_BINDIR):$$PATH $(TEXLIVE_BINDIR)/bibtex
