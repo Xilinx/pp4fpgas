@@ -251,7 +251,7 @@ cosim:
 
 cosim_verify:
 	@echo "Checking for errors in HLS cosim logs..."
-	@find . -path "*.comp/hls/sim/verilog/xsim.log" -exec grep -i 'error:' {} \; > hls_cosim_errors.txt 2>/dev/null || true
+	@find . -path "*.comp/hls/hls.log" -exec grep -i -H 'error:' {} \; > hls_cosim_errors.txt 2>/dev/null || true
 	@if [ -s hls_cosim_errors.txt ]; then \
     	echo "Found errors in HLS logs:"; \
     	cat hls_cosim_errors.txt; \
