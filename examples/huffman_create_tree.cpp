@@ -15,6 +15,7 @@ void create_tree (
     for(int i = 0; i < (num_symbols-1); i++) {
 #pragma HLS PIPELINE II=5
         Frequency node_freq = 0;
+        Symbol s;
 
         // There are two cases.
         // Case 1: remove a Symbol from in[]
@@ -22,7 +23,9 @@ void create_tree (
         // We do this twice, once for the left and once for the right of the new intermediate node.
         assert(in_count < num_symbols || tree_count < i);
         Frequency intermediate_freq = frequency[tree_count];
-        Symbol s = in[in_count];
+
+        if(in_count < INPUT_SYMBOL_SIZE)
+            s = in[in_count];
         if((in_count < num_symbols && s.frequency <= intermediate_freq) || tree_count == i) {
             // Pick symbol from in[].
             left[i] = s.value; // Set input symbol as left node
@@ -38,7 +41,9 @@ void create_tree (
 
         assert(in_count < num_symbols || tree_count < i);
         intermediate_freq = frequency[tree_count];
-        s = in[in_count];
+        if(in_count < INPUT_SYMBOL_SIZE)
+            s = in[in_count];
+
         if((in_count < num_symbols && s.frequency <= intermediate_freq) || tree_count == i) {
             // Pick symbol from in[].
             right[i] = s.value;
