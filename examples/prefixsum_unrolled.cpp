@@ -12,7 +12,7 @@ void prefixsum(int in[SIZE], int out[SIZE]) {
   
   prefixsum_loop_1: for(int i=1; i < SIZE; i++) {
     #pragma HLS UNROLL factor=4
-    #pragma HLS PIPELINE
+    #pragma HLS PIPELINE II=1
     out[i] = out[i-1] + in[i];
   }
 }
