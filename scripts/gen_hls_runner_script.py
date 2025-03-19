@@ -116,6 +116,7 @@ def write_script(
     top = params["top"]
     part = params["part"]
     period = params["period"]
+    config_csim_prefix = params["config_csim_prefix"]
     files = params["files"]
     tb_files = params["tb_files"]
 
@@ -130,11 +131,15 @@ def write_script(
         # check if params has a key named config_csim
         if "config_csim" in params:
             csim_flow = f"""\
+            {config_csim_prefix}    
             {params["config_csim"]}
             csim_design  
             """
         else:
-            csim_flow = "csim_design"
+            csim_flow = f"""
+            {config_csim_prefix}
+            csim_design
+            """
     else:
         csim_flow = ""
 
@@ -210,7 +215,6 @@ def write_script(
                         apply_ini ${{file_root}}.ini -show=true
                     }}
          
-                    {config_compile}
                     {csim_flow}               
                     {csynth_flow}
                     {cosim_flow}    
@@ -254,8 +258,9 @@ def get_script_parameters(input_file, config, id_tag=None):
     # set the parameters for the Tcl script using default values
     parameters = {
         "top": file_rootname,
-        "part": config["DEFAULTS"]["part"],
-        "period": config["DEFAULTS"]["period"],
+        "part": config.get("DEFAULTS", "part", fallback=""),
+        "period": config.get("DEFAULTS", "period", fallback=""),
+        "config_csim_prefix": config.get("DEFAULTS", "config_csim_prefix", fallback=""),
         "files": file_basename,
         "tb_files": f"{file_rootname}-top.{file_suffix}",
     }
