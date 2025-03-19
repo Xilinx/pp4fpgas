@@ -247,7 +247,7 @@ csim_verify:
 	@rm -f hls_csim_errors.txt
 
 cosim:
-	@COSIM="--cosim" $(MAKE) $(HLS_TARGETS)
+	@COSIM="--cosim" CSYNTH="--csynth" $(MAKE) $(HLS_TARGETS)
 
 cosim_verify:
 	@echo "Checking for errors in HLS cosim logs..."
