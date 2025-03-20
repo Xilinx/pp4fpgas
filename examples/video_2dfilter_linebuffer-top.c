@@ -94,9 +94,9 @@ int main(int argc, char *argv[]) {
 	// Copy Image to pixel data structure
 	for (x = 0; x < height_ref; x++) {
 		for (y = 0; y < width_ref; y++) {
-			ref_pix[x][y].R = R_ref[x*width+y];
-			ref_pix[x][y].G = G_ref[x*width+y];
-			ref_pix[x][y].B = B_ref[x*width+y];
+			ref_pix[x][y].R = R_ref[x*width_ref+y];
+			ref_pix[x][y].G = G_ref[x*width_ref+y];
+			ref_pix[x][y].B = B_ref[x*width_ref+y];
 		}
 	}
 
