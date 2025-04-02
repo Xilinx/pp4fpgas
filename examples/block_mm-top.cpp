@@ -32,7 +32,20 @@ int main() {
   DTYPE A[SIZE][SIZE], B[SIZE][SIZE];
   DTYPE matrix_swout[SIZE][SIZE], matrix_hwout[SIZE][SIZE];
   int row, col, it = 0;
-  
+
+  const int srand_seed_value = 42;
+
+  srand(srand_seed_value);  // Use a fixed seed for reproducible results
+          
+  initmatrices: for(int i = 0; i < SIZE; i++) {
+    for(int j = 0; j < SIZE; j++) {
+      A[i][j] = rand() % 512;
+      B[i][j] = rand() % 512;
+      matrix_swout[i][j] = 0;
+      matrix_hwout[i][j] = 0;
+    }
+  }
+
   for(int it1 = 0; it1 < SIZE; it1 = it1 + BLOCK_SIZE) {
     for(int it2 = 0; it2 < SIZE; it2 = it2 + BLOCK_SIZE) {
       row = it1; //row + BLOCK_SIZE * factor_row;
@@ -57,12 +70,21 @@ int main() {
   
   matmatmul_sw(A, B, matrix_swout);
   
-  for(int i = 0; i<SIZE; i++)
-    for(int j = 0; j<SIZE; j++)
-      if(matrix_swout[i][j] != matrix_hwout[i][j]) { fail=1; }
-  
-  if(fail==1) cout << "failed" << endl;
-  else cout << "passed" << endl;
-  
-  return 0;
+  for(int i = 0; i<SIZE; i++) {
+    for(int j = 0; j<SIZE; j++) {
+      if(matrix_swout[i][j] != matrix_hwout[i][j]) { 
+        printf("matrix_swout[%d][%d] = %d  != matrix_hwout[%d][%d] = %d\n", i, j, matrix_swout[i][j], i, j, matrix_hwout[i][j]);
+        fail=1;   
+      }
+    }
+  }
+
+  if(fail==1) {
+    cout << "failed" << endl;
+    return 1;
+  } else {
+    cout << "passed" << endl;
+    return 0;
+  }
+
 }
