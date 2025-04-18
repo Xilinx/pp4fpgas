@@ -86,7 +86,7 @@ int main()
 	  }
 	}
 
-	fprintf(stdout, "Average Error : %f\n",error/SIZE);
+	fprintf(stdout, "Average Error: %f\n",error/SIZE);
 	
 	if ((error/SIZE) > .05 || maxerror > 2) { // This is somewhat arbitrary.  Should do proper error analysis.
 	  fprintf(stdout, "*******************************************\n");
