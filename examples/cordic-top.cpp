@@ -1,3 +1,8 @@
+// The original work is licensed under the Creative Commons Attribution 4.0 International License.
+// See https://creativecommons.org/licenses/by/4.0/ or refer to the LICENSE file for details.
+//
+// Modifications Copyright (C) 2025 Advanced Micro Devices, Inc. All rights reserved.
+
 /*
 This is traditional CORDIC computation of sine and cosine.
 The current code is based on [FXT: cordic-circ-demo.cc]

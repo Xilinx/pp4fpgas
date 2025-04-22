@@ -1,15 +1,18 @@
-# This makefile was tested with Vivado HLS 2019.2
-# and Vitis v2024.1
-# 
+# The original work is licensed under the Creative Commons Attribution 4.0 International License.
+# See https://creativecommons.org/licenses/by/4.0/ or refer to the LICENSE file for details.
 #
+# Modifications Copyright (C) 2025 Advanced Micro Devices, Inc. All rights reserved.
+
 
 # select the HLS compiler to use (vivado_hls or vitis)
 USE_VITIS=1
 
 ifeq ($(USE_VITIS),1)
 
-# Extract the first "YYYY.m" pattern from the path of the vitis-run executable
-VERSION := $(shell which vitis-run | grep -oP '(?<=Vitis/)[0-9]{4}.[0-9]+' | head -n 1)
+## Extract the first "YYYY.m" pattern from the path of the vitis-run executable
+#VERSION := $(shell which vitis-run | grep -oP '(?<=Vitis/)[0-9]{4}.[0-9]+' | head -n 1)
+# Extract the YYYY.m pattern from the path of the vitis-run executable, handling different path formats
+VERSION := $(shell which vitis-run | grep -oE '(/|\\)[0-9]{4}\.[0-9]+(/|\\)' | grep -oE '[0-9]{4}\.[0-9]+' | head -n 1)
 
 # If the version is not found, print an error message and exit
 ifeq ($(VERSION),)
@@ -26,18 +29,26 @@ $(info Vitis version is MAJOR: $(MAJOR) MINOR: $(MINOR))
 VITIS_COMPILER := $(shell dirname $(shell which vitis-run))
 HLS_COMPILER=vitis-run --mode hls --tcl 
 
-# Check if the version is less than or equal to 2024.1, and use the Vitis_HLS path for include files
+# Check if the version is less than or equal to 2024.1
 ifeq ($(shell [ $$(echo $(MAJOR)) -lt 2024 ] || { [ $$(echo $(MAJOR)) -eq 2024 ] && [ $$(echo $(MINOR)) -le 1 ] ; } && echo true),true)
 $(info Version $(VERSION) is ≤ 2024.1)
 
 VHLS = $(VITIS_COMPILER)/../../../Vitis_HLS/$(VERSION)
 
-else
-# If the version is greater than 2024.1, use the Vitis path for include files
-$(info Version $(VERSION) is > 2024.1)
+# Check if the version is 2024.2
+else ifeq ($(shell [ $$(echo $(MAJOR)) -eq 2024 ] && [ $$(echo $(MINOR)) -eq 2 ] && echo true),true)
+$(info Version $(VERSION) is 2024.2)
 
 VHLS = $(VITIS_COMPILER)/../../../Vitis/$(VERSION)
 
+# Check if the version is 2025.1 or greater
+else ifeq ($(shell [ $$(echo $(MAJOR)) -gt 2025 ] || { [ $$(echo $(MAJOR)) -eq 2025 ] && [ $$(echo $(MINOR)) -ge 1 ] ; } && echo true),true)
+$(info Version $(VERSION) is 2025.1 or greater)
+
+VHLS = $(VITIS_COMPILER)/../../Vitis/
+
+else
+$(error Unsupported Vitis version $(VERSION))
 endif
 
 HLS_CONFIG_FILE = $(CURDIR)/__hls_config__versal500__.ini

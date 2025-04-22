@@ -1,0 +1,53 @@
+nwa:
+  cmd: ""                        # Default: "add" Optional: "add", "check", "remove", "update", can be overwritten by --command (-c) flag
+  holder: "Advanced Micro Devices, Inc."          # Default: "<COPYRIGHT HOLDER>"
+  year: "2025"                      # Default: Current Year
+  license: ""                 # Default: "apache"
+  spdxids: ""                       # Default: ""
+  mute: false                       # Default: false (unspecified)
+  verbose: true                    # Default: false (unspecified)
+  fuzzy: false                      # Default: false (unspecified), only used for "check" command
+  #path: ["**/*.cpp", "**/*.c"] # Default: []
+  path: 
+    - examples/prefixsum_unrolled-top.cpp
+    - examples/video_2dfilter-top.c
+    - examples/fir11_initial-top.c
+    - examples/video_2dfilter_linebuffer-top.c
+    - examples/firrolled.c
+    - examples/prefixsumBO-top.cpp
+    - examples/spmv2.cpp
+    - examples/fir.c
+    - examples/block_mm-top.cpp
+    - examples/complex_fir.cpp
+    - examples/video_2dfilter_boundary_condition-top.c
+    - examples/fir11_initial.c
+    - examples/prefixsum_unrolled.cpp
+    - examples/restructured_merge_sort.cpp
+    - examples/complex_fir-top.cpp
+    - examples/prefixsumSW-top.cpp
+    - examples/cordic_fixed-top.cpp
+    - examples/bitmap.c
+    - examples/spmv2_interleaved.cpp
+    - examples/spmv_restructured.cpp
+    - examples/video_2dfilter_linebuffer_extended-top.c
+    - scripts/compare_images_opencv.cpp
+    - examples/insertion_sort_relaxed.cpp
+    - scripts/video_2dfilter_opencv.cpp
+    - examples/prefixsumHW-top.cpp
+    - examples/video_2dfilter_boundary_condition.c
+    - examples/fir_cslowed.c
+    - examples/cordic.cpp
+    - examples/histogramSW.cpp
+    - examples/cordic-top.cpp
+    - examples/fft_stages.cpp
+    - examples/prefixsum_optimized-top.cpp
+    - examples/histogram_parallel.cpp
+    - examples/fir-top.c
+    - examples/spmv2_restructured.cpp
+    - examples/video_2dfilter_linebuffer_extended_constant-top.c
+    - examples/block_fir-top.c
+    - examples/Makefile
+    - Makefile
+  #skip: ["labs/**", "examples/*.comp/**"]                   # Default: []
+  tmpl: "license_modifications.txt"                   # Default: ""                                                       
+  rawtmpl: ""                       # Default: ""

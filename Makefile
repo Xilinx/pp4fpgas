@@ -1,3 +1,8 @@
+# The original work is licensed under the Creative Commons Attribution 4.0 International License.
+# See https://creativecommons.org/licenses/by/4.0/ or refer to the LICENSE file for details.
+#
+# Modifications Copyright (C) 2025 Advanced Micro Devices, Inc. All rights reserved.
+
 base=main
 all: main.pdf
 
@@ -37,3 +42,10 @@ semantic-release:
 #
 create-release-branch:
 	./scripts/create-release-branch.sh
+
+nwa:
+	sudo docker run -it \
+		--user $(shell id -u):$(shell id -g) \
+		-v ${PWD}:/src \
+		ghcr.io/b1nary-gr0up/nwa:main \
+		config -c add
