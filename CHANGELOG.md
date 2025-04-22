@@ -1,3 +1,11 @@
+## [1.1.12](https://gitenterprise.xilinx.com/SDxGitExamples/pp4fpgas/compare/v1.1.11...v1.1.12) (2025-04-22)
+
+
+### Bug Fixes
+
+* add license copyright modifications header ([2a8b074](https://gitenterprise.xilinx.com/SDxGitExamples/pp4fpgas/commit/2a8b0745c7ff1a1c5f66308d053b764b7cf2e710))
+* misplaced DEPENDENCE pragma CR-1225912 ([0971aac](https://gitenterprise.xilinx.com/SDxGitExamples/pp4fpgas/commit/0971aac9cf42cc1848e077fc347e49aa68cbc060))
+
 ## [1.1.11](https://gitenterprise.xilinx.com/mpettigr/pp4fpgas/compare/v1.1.10...v1.1.11) (2025-02-26)
 
 
