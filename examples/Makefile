@@ -16,6 +16,9 @@ COSIM ?=
 CSYNTH ?=
 IMPL ?=
 
+# Add vitis-run args if desired
+VITIS_RUN_ARGS ?=
+
 ifeq ($(USE_VITIS),1)
 
 ## Extract the first "YYYY.m" pattern from the path of the vitis-run executable
@@ -36,7 +39,7 @@ MINOR := $(shell echo $(VERSION) | cut -d'.' -f2)
 $(info Vitis version is MAJOR: $(MAJOR) MINOR: $(MINOR))
 
 VITIS_COMPILER := $(shell dirname $(shell which vitis-run))
-HLS_COMPILER=vitis-run --mode hls --tcl 
+HLS_COMPILER=vitis-run ${VITIS_HLS_ARGS} --mode hls --tcl 
 
 # Check if the version is less than or equal to 2024.1
 ifeq ($(shell [ $$(echo $(MAJOR)) -lt 2024 ] || { [ $$(echo $(MAJOR)) -eq 2024 ] && [ $$(echo $(MINOR)) -le 1 ] ; } && echo true),true)
