@@ -19,14 +19,17 @@ int main(){
 	DTYPE values[] = {3,4,5,9,2,3,1,4,6};
 	int columnIndex[] = {0,1,1,2,0,2,3,1,3};
 	int rowPtr[] = {0,2,4,7,9};
-	DTYPE y[SIZE];
+	DTYPE y[SIZE] = {};
 
 	spmv(rowPtr, columnIndex, values, y, x);
 	matrixvector(M, y_sw, x);
 
-	for(int i = 0; i < SIZE; i++)
-		if(y_sw[i] != y[i])
+	for(int i = 0; i < SIZE; i++) {
+		if(y_sw[i] != y[i]) {
 			fail = 1;
+			printf("i: %d y[%d] = %f y_sw[%d] = %f fail: %d	\n", i, i, y[i], i, y_sw[i], fail);	
+		}
+	}
 
 	if(fail == 1)
 		printf("FAILED\n");

@@ -20,7 +20,7 @@ int main() {
 
 	for(int i = 0; i < INPUT_SIZE; i++)
 		if(y_sw[i] != y[i]) {
-            printf("%d %d %d", i, y_sw[i], y[i]);
+            printf("i: %d y_sw[%d]: %d y[%d]: %d\n", i, i, y_sw[i], i, y[i]);
 			fail = 1;
         }
 

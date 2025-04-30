@@ -14,6 +14,10 @@ unsigned char R_out[MAX_HEIGHT][MAX_WIDTH];
 unsigned char G_out[MAX_HEIGHT][MAX_WIDTH];
 unsigned char B_out[MAX_HEIGHT][MAX_WIDTH];
 
+unsigned char rescale_sw(unsigned char val, unsigned char offset, unsigned char scale) {
+	return ((val - offset) * scale) >> 4;
+}
+
 void video_filter_rescale(rgb_pixel pixel_in[MAX_HEIGHT][MAX_WIDTH],
                           rgb_pixel pixel_out[MAX_HEIGHT][MAX_WIDTH],
                           unsigned char min, unsigned char max);
@@ -48,7 +52,9 @@ int main(int argc, char *argv[]) {
 	}
 
 	// Hardware Function
-	video_filter_rescale(in_pix, out_pix, 30, 18);
+	const int OFFSET = 30;
+	const int SCALE = 18;
+	video_filter_rescale(in_pix, out_pix, OFFSET, SCALE);
 
 	// Copy Output video pixel stream to Output Image data structure
 	for (x = 0; x < MAX_HEIGHT; x++) {
@@ -66,4 +72,29 @@ int main(int argc, char *argv[]) {
 		printf("WriteBMP %s failed\n", argv[2]);
 		exit(1);
 	}
+
+	// 
+	// Compare rescale image with input reference
+	//
+	int sum_absdiff = 0;
+	int sum_absdiff_expected = 100;
+
+	for (x = 0; x < MAX_HEIGHT; x++) {
+		for (y = 0; y < MAX_WIDTH; y++) {
+			sum_absdiff += abs(rescale_sw(in_pix[x][y].R, 30, 18) - out_pix[x][y].R);
+			sum_absdiff += abs(rescale_sw(in_pix[x][y].G, 30, 18) - out_pix[x][y].G);
+			sum_absdiff += abs(rescale_sw(in_pix[x][y].B, 30, 18) - out_pix[x][y].B);	
+		}
+	}
+
+	printf("sum_absdiff = %d\n", sum_absdiff);
+
+    if (sum_absdiff < sum_absdiff_expected) {
+		printf("PASS\n");
+        return 0; // Success
+    } else {
+		printf("FAIL\n");
+        return 1; // Failure
+    }	
+
 }

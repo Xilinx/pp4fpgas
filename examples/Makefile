@@ -1,11 +1,23 @@
 # The original work is licensed under the Creative Commons Attribution 4.0 International License.
 # See https://creativecommons.org/licenses/by/4.0/ or refer to the LICENSE file for details.
-#
+# 
 # Modifications Copyright (C) 2025 Advanced Micro Devices, Inc. All rights reserved.
-
+#
+# To run, cosim 
+# COSIM="--cosim" make hls
+#
+# To run, impl
+# IMPL="--impl" make hls
 
 # select the HLS compiler to use (vivado_hls or vitis)
-USE_VITIS=1
+USE_VITIS ?= 1
+CSIM ?=
+COSIM ?=
+CSYNTH ?=
+IMPL ?=
+
+# Add vitis-run args if desired
+VITIS_RUN_ARGS ?=
 
 ifeq ($(USE_VITIS),1)
 
@@ -27,7 +39,7 @@ MINOR := $(shell echo $(VERSION) | cut -d'.' -f2)
 $(info Vitis version is MAJOR: $(MAJOR) MINOR: $(MINOR))
 
 VITIS_COMPILER := $(shell dirname $(shell which vitis-run))
-HLS_COMPILER=vitis-run --mode hls --tcl 
+HLS_COMPILER=vitis-run ${VITIS_HLS_ARGS} --mode hls --tcl 
 
 # Check if the version is less than or equal to 2024.1
 ifeq ($(shell [ $$(echo $(MAJOR)) -lt 2024 ] || { [ $$(echo $(MAJOR)) -eq 2024 ] && [ $$(echo $(MINOR)) -le 1 ] ; } && echo true),true)
@@ -81,11 +93,7 @@ CXX = g++
 LD_PATH_NEW = /usr/lib/x86_64-linux-gnu
 LD_LIBRARY_PATH := $(shell echo $(value LD_LIBRARY_PATH) | grep -q $(LD_PATH_NEW) || echo $(LD_PATH_NEW):)$(value LD_LIBRARY_PATH)
 
-#GEN_TCL = $(CURDIR)/../scripts/gen_hls_csynth_script.py
-GEN_TCL = $(CURDIR)/../scripts/gen_hls_runner_script.py
-
-#HLS_CONFIG_FILE = $(CURDIR)/__hls_config__.ini
-HLS_CONFIG_FILE = $(CURDIR)/__hls_config__versal500__.ini
+GEN_TCL = $(CURDIR)/../scripts/gen_hls_runner_script.py --verbose $(CSIM) $(CSYNTH) $(COSIM) $(IMPL)
 
 $(warning $(EXAMPLES_LOG))
 
@@ -186,7 +194,6 @@ HLS_TARGETS = $(patsubst %.c,%.comp,$(CC_HLS_TARGET_FILES))
 HLS_TARGETS += $(patsubst %.cpp,%.comp,$(CXX_HLS_TARGET_FILES))
 
 %.comp: %.tcl
-#	vivado_hls -f $?
 	$(HLS_COMPILER) $? || (echo "$(HLS_COMPILER) $? failed $$?"; exit 0)
 
 %.tcl: %.c
@@ -198,16 +205,70 @@ HLS_TARGETS += $(patsubst %.cpp,%.comp,$(CXX_HLS_TARGET_FILES))
 %.log: %.bin
 	-./$< > $@ || (echo "./$< > $@ failed $$?"; exit 1)
 
+hls:
+csynth:
+	@CSYNTH="--csynth" $(MAKE) $(HLS_TARGETS)
 
-hls: $(HLS_TARGETS)
+hls_verify:
+csynth_verify:
+	@echo "Checking for errors in HLS csynth logs..."
+	@find -wholename "*.comp/hls/hls.log" -exec grep -i 'error:' {} \; > hls_csynth_errors.txt || true > /dev/null 2>&1
+	@if [ -s hls_csynth_errors.txt ]; then \
+    	echo "Found errors in HLS logs:"; \
+    	cat hls_csynth_errors.txt; \
+        exit 1; \
+    else \
+        echo "No errors found in HLS csynth logs"; \
+    fi
+	@rm -f hls_csynth_errors.txt
 
 test: $(EXAMPLES_LOG)
+
+test_verify:
+	@echo "Checking for errors in test logs..."
+	@for f in $(EXAMPLES_LOG); do \
+		if grep -q "ERROR" $$f; then \
+			echo "Found errors in $$f"; \
+			exit 1; \
+		fi; \
+	done
+	@echo "No errors found in test logs"
+
+csim:
+	@CSIM="--csim" $(MAKE) $(HLS_TARGETS)
+
+csim_verify:
+	@echo "Checking for errors in HLS csim logs..."
+	@find . -path "*/csim/*/hls*.log" -o -path "*/csim/*.log" -exec grep -i 'error:' {} \; > hls_csim_errors.txt 2>/dev/null || true
+	@if [ -s hls_csim_errors.txt ]; then \
+    	echo "Found errors in HLS logs:"; \
+    	cat hls_csim_errors.txt; \
+    	exit 1; \
+	else \
+    	echo "No errors found in HLS csim logs"; \
+	fi
+	@rm -f hls_csim_errors.txt
+
+cosim:
+	@COSIM="--cosim" CSYNTH="--csynth" $(MAKE) $(HLS_TARGETS)
+
+cosim_verify:
+	@echo "Checking for errors in HLS cosim logs..."
+	@find . -path "*.comp/hls/hls.log" -exec grep -i -H 'error:' {} \; > hls_cosim_errors.txt 2>/dev/null || true
+	@if [ -s hls_cosim_errors.txt ]; then \
+    	echo "Found errors in HLS logs:"; \
+    	cat hls_cosim_errors.txt; \
+    	exit 1; \
+	else \
+    	echo "No errors found in HLS cosim logs"; \
+	fi
+	@rm -f hls_cosim_errors.txt
 
 
 clean:
 	rm -rf *.o *.log *.bin *.tcl *.comp logs/* hls/*
 
-.PHONY: clean hls test
+.PHONY: clean hls test csim_verify csim csynth
 
 # Prevent make from deleting the .bin intermediate files
 .PRECIOUS: %.bin %.tcl block_fir-top.bin fir-top.bin

@@ -43,11 +43,11 @@ void fft_stage(int stage, DTYPE X_R[SIZE], DTYPE X_I[SIZE],
   for (int j = 0; j < numBF; j++) {
     // Compute butterflies that use same W**k
   dft_loop:
-      for(int t = 0; t < step; t++) {
-          int i = j + t*DFTpts;
-          //    for (int i = j; i < SIZE; i += DFTpts) {
+    for(int t = 0; t < step; t++) {
+      int i = j + t*DFTpts;
+    //    for (int i = j; i < SIZE; i += DFTpts) {
 #pragma HLS pipeline
-          int k = j*step;
+      int k = j*step;
       DTYPE c = W_real[k];
       DTYPE s = W_imag[k];
       int i_lower = i + numBF; // index of lower point in butterfly

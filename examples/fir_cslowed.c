@@ -6,15 +6,15 @@
  */
 
 
-#define NUM_TAPS 4
-#define K 4
+#include "fir_cslowed.h"
 
-void block_fir(int input[256][K], int output[256][K], int taps[NUM_TAPS],
+
+void block_fir(int input[SIZE][K], int output[SIZE][K], int taps[NUM_TAPS],
 							 int delay_line[NUM_TAPS][K]) {
 	int i, j, k; 
-	for (j = 0; j < 256; j++) {
+	for (j = 0; j < SIZE; j++) {
 		for (k = 0; k < K; k++) {
-			int result[K] = {};
+			int result[K] = {0};
 			for (i = NUM_TAPS - 1; i > 0; i--) {
 #pragma HLS unroll
 				delay_line[i][k] = delay_line[i - 1][k];

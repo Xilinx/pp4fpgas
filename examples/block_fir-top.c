@@ -19,7 +19,13 @@ int main() {
     input[i] = i;
     printf("input[%d] = %d output %d \n", i, input[i], output[i]);
   }
+
   block_fir(input, output, taps, delay_line);
+  
+  for(int i = 0; i < SIZE; i++) {
+    printf("input[%d] = %d output %d \n", i, input[i], output[i]);
+  }
+  
   printf("result = %d\n", output[SIZE-1]);
   if(output[SIZE-1] == -1452) {
     return 0;

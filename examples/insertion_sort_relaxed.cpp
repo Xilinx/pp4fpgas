@@ -15,7 +15,8 @@ void insertion_sort(DTYPE A[SIZE]) {
         while(j > 0 && t > item) {
 #pragma HLS pipeline II=1
             A[j] = t;
-            t = A[j-2];
+            if (j > 1)
+                t = A[j-2];
             j--;
         }
         A[j] = item;

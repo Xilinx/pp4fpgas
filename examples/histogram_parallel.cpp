@@ -5,13 +5,13 @@
 
 #include "histogram_parallel.h"
 void histogram_map(int in[INPUT_SIZE/2], int hist[VALUE_SIZE]) {
-    for(int i = 0; i < VALUE_SIZE; i++) {
+  histogram_map_loop_1: for(int i = 0; i < VALUE_SIZE; i++) {
 #pragma HLS PIPELINE II=1
-        hist[i] = 0;
-    }
+    hist[i] = 0;
+  }
   int old = in[0];
   int acc = 0;
-  for(int i = 0; i < INPUT_SIZE/2; i++) {
+  histogram_map_loop_2: for(int i = 0; i < INPUT_SIZE/2; i++) {
 #pragma HLS PIPELINE II=1
 #pragma HLS DEPENDENCE variable=hist intra RAW false
     int val = in[i];
@@ -27,7 +27,7 @@ void histogram_map(int in[INPUT_SIZE/2], int hist[VALUE_SIZE]) {
 }
 
 void histogram_reduce(int hist1[VALUE_SIZE], int hist2[VALUE_SIZE], int output[VALUE_SIZE]) {
-  for(int i = 0; i < VALUE_SIZE; i++) {
+  histogram_reduce_loop_1: for(int i = 0; i < VALUE_SIZE; i++) {
 #pragma HLS PIPELINE II=1
     output[i] = hist1[i] + hist2[i];
   }

@@ -21,8 +21,8 @@ void video_2dfilter_linebuffer(rgb_pixel pixel_in[MAX_HEIGHT][MAX_WIDTH],
 							   rgb_pixel pixel_out[MAX_HEIGHT][MAX_WIDTH]) {
 #pragma HLS interface ap_hs port=pixel_out
 #pragma HLS interface ap_hs port=pixel_in
-	rgb_pixel window[3][3];
-	rgb_pixel line_buffer[2][MAX_WIDTH];
+	rgb_pixel window[3][3] = {0};
+	rgb_pixel line_buffer[2][MAX_WIDTH] = {0};
 #pragma HLS array_partition variable=line_buffer complete dim=1
 row_loop: for (int row = 0; row < MAX_HEIGHT; row++) {
 	col_loop: for (int col = 0; col < MAX_WIDTH; col++) {

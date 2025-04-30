@@ -6,12 +6,12 @@
  */
 
 
-#define NUM_TAPS 4
+#include "block_fir.h"
 
 void block_fir(int input[256], int output[256], int taps[NUM_TAPS],
-							 int delay_line[NUM_TAPS]) {
+							 int delay_line[NUM_TAPS]) {	
 	int i, j;
-	for (j = 0; j < 256; j++) {
+	block_fir_loop_1: for (j = 0; j < 256; j++) {
 		int result = 0;
 		for (i = NUM_TAPS - 1; i > 0; i--) {
 #pragma HLS unroll

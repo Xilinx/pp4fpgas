@@ -21,7 +21,7 @@ void cordic(THETA_TYPE theta, COS_SIN_TYPE &s, COS_SIN_TYPE &c)
   COS_SIN_TYPE factor = 1.0;
   // This loop iteratively rotates the initial vector to find the
   // sine and cosine values corresponding to the input theta angle
-  for (int j = 0; j < NUM_ITERATIONS; j++) {
+  cordic_loop_1: for (int j = 0; j < NUM_ITERATIONS; j++) {
       // Determine if we are rotating by a positive or negative angle
       int sigma = (theta < 0) ? -1 : 1;
 

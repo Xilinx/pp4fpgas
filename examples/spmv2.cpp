@@ -31,16 +31,13 @@ int flag;
 	int L, K;
 	y[row] = 0;
  ACC:  for(i=0; i<NNZ + NUM_ROWS; i++ ) {
-#pragma HLS DEPENDENCE variable=y array inter false
-//#pragma HLS DEPENDENCE variable=element_left array inter false
-//#pragma HLS DEPENDENCE variable=element_done array inter false
+//#pragma HLS DEPENDENCE variable=y array inter false
 #pragma HLS PIPELINE II=1
-
 		if(LB == UB) {
 			row++;
+			if(row >= NUM_ROWS) break;	
 			UB = rowPtr[row+1];
 			y[row] = 0;
-			if(row >= NUM_ROWS) break;
 		} else {
 			int k = LB;
 			y[row] += values[k] * x[columnIndex[k]];
