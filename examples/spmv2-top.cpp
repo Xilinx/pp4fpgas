@@ -25,9 +25,10 @@ int main(){
 	matrixvector(M, y_sw, x);
 
 	for(int i = 0; i < SIZE; i++) {
-		if(y_sw[i] != y[i])
+		if(y_sw[i] != y[i]) {
 			fail = 1;
-//		printf("i: %d y[%d] = %f y_sw[%d] = %f fail: %d	\n", i, i, y[i], i, y_sw[i], fail);	
+			printf("i: %d y[%d] = %f y_sw[%d] = %f fail: %d	\n", i, i, y[i], i, y_sw[i], fail);	
+		}
 	}
 
 	if(fail == 1)
