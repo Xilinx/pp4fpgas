@@ -43,10 +43,13 @@ cd examples
 make clean
 make test
 make test_verify
+make clean
 make csim
 make csim_verify
+make clean
 make csynth
 make csynth_verify
+make clean
 make cosim
 make cosim_verify
 ```
@@ -68,7 +71,7 @@ You can also manually check logs:
 
 * Software test logs: `grep -q "ERROR" *.log`
 * HLS synthesis logs: `find -wholename "*.comp/hls/hls.log" -exec grep -i 'error:' {} +`
-* C simulation logs: `find . -path "*/csim/*/hls*.log" -o -path "*/csim/*.log" -exec grep -i 'error:' {} +`
-* Co-simulation logs: `find . -path "*.comp/hls/sim/verilog/xsim.log" -exec grep -i 'error:' {} +`
+* C simulation logs: `find . -path "*/csim/*/hls*.log" -o -path "*/csim/*.log" -exec grep -i '^\s*error:' {} +`
+* Co-simulation logs: `find . -path "*.comp/hls/sim/verilog/xsim.log" -exec grep -i '^\s*error:' {} +`
 
 To verify these commands work, try replacing 'error:' with 'warning:' and rerun to see typical output.
