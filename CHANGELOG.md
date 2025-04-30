@@ -1,3 +1,43 @@
+# [1.2.0](https://gitenterprise.xilinx.com/SDxGitExamples/pp4fpgas/compare/v1.1.12...v1.2.0) (2025-04-30)
+
+
+### Bug Fixes
+
+* add cosim, csim, cosim/csim/csynth_verify ([c5a050a](https://gitenterprise.xilinx.com/SDxGitExamples/pp4fpgas/commit/c5a050aecd309d99c8a88af7d1ac95b72ee804b4))
+* add dedicated fir_cslowed.h header ([bda4e43](https://gitenterprise.xilinx.com/SDxGitExamples/pp4fpgas/commit/bda4e432a984435bc48a738ec3304838d026ef2b))
+* add loop labels to increase log output clarity ([ae33360](https://gitenterprise.xilinx.com/SDxGitExamples/pp4fpgas/commit/ae333605b48e0ab2bdec197fffebf55e603802c4))
+* add vitis-run arg support ([7883d05](https://gitenterprise.xilinx.com/SDxGitExamples/pp4fpgas/commit/7883d05d9346ccbf6b7d9de87373d97ac7505612))
+* better version detect ([95cf853](https://gitenterprise.xilinx.com/SDxGitExamples/pp4fpgas/commit/95cf85367e031e9998c937d4761314af1b2a2f7e))
+* **block_mm:** initialize test data ([7dce81f](https://gitenterprise.xilinx.com/SDxGitExamples/pp4fpgas/commit/7dce81f95dd20b2359009ed3c1e8e7f07884422b))
+* **block_mm:** static A var needs STREAM pragma ([1a3e740](https://gitenterprise.xilinx.com/SDxGitExamples/pp4fpgas/commit/1a3e740d921e4c01c53cc4cfc008b4e954d0465b))
+* clean up, debug print or add self-checking testbenches for cosim ([63a4e6d](https://gitenterprise.xilinx.com/SDxGitExamples/pp4fpgas/commit/63a4e6dc9df87538af1f8799ea351fd8dc712a7f))
+* **fft:** use "error:" phrase in stdout ([5b58228](https://gitenterprise.xilinx.com/SDxGitExamples/pp4fpgas/commit/5b58228be9dcfe26ed86c491b7a3fa7df0ba3d09))
+* **huffman_encoding:** out of range bug ([08c1821](https://gitenterprise.xilinx.com/SDxGitExamples/pp4fpgas/commit/08c18213a1a6c3ce45a29bea1bd5ecf2d228cc51))
+* indentation ([1abab27](https://gitenterprise.xilinx.com/SDxGitExamples/pp4fpgas/commit/1abab27958f6fa31556bc8d458ef9e2340396283))
+* **ini:** add insertion_sort and insertion_sort_parallel components ([b8a5cfa](https://gitenterprise.xilinx.com/SDxGitExamples/pp4fpgas/commit/b8a5cfad4b927ebd9c471739f02c25b6dedd132d))
+* **ini:** no optimization experiment ([5d1979d](https://gitenterprise.xilinx.com/SDxGitExamples/pp4fpgas/commit/5d1979d462984e04deed82cea228f295f14ca75b))
+* **insertion_sort_relaxed:** out of range bug ([f94241b](https://gitenterprise.xilinx.com/SDxGitExamples/pp4fpgas/commit/f94241bb14cf0bb97798f214de8c4b7c901d6e12))
+* length_histogram[] must be initialized ([0481eca](https://gitenterprise.xilinx.com/SDxGitExamples/pp4fpgas/commit/0481ecaf3331d57523e3d26110751cb223041273))
+* **Makefile:** cosim_verify must use hls/hls.log for log check ([2f2bf36](https://gitenterprise.xilinx.com/SDxGitExamples/pp4fpgas/commit/2f2bf36f2e50e76a62760d733a5988ffc4a18622))
+* **prefixsum_unrolled:** use PIPELINE II=1 CR-1227857 ([80d2de7](https://gitenterprise.xilinx.com/SDxGitExamples/pp4fpgas/commit/80d2de7606fdd5301e11dee3058721a328b6e5eb))
+* properly initialize result[K] with {0} ([1a6ec8c](https://gitenterprise.xilinx.com/SDxGitExamples/pp4fpgas/commit/1a6ec8cab9841feb68bc029619e5d0a9b852a580))
+* **README:** cleanup README ([f13ec7d](https://gitenterprise.xilinx.com/SDxGitExamples/pp4fpgas/commit/f13ec7d51cab6437480b8a8b6d3067467931fec1))
+* **runme_cosim:** add CSIM to runme_cosim.sh flow ([b62b28d](https://gitenterprise.xilinx.com/SDxGitExamples/pp4fpgas/commit/b62b28de4054ab7e7bed807b0ba03ef31bc2846c))
+* **spmv2_interleaved:** remove DEPENDENCE pragma ([422ce23](https://gitenterprise.xilinx.com/SDxGitExamples/pp4fpgas/commit/422ce2311fefe06b3e3bcc070c5a9ac88961b51c))
+* **spmv2:** out of range bug ([5364a7b](https://gitenterprise.xilinx.com/SDxGitExamples/pp4fpgas/commit/5364a7b7230c4467811748bb7650d67461bbdb27))
+* update .gitignore / add convenient scripts ([ae7eb2f](https://gitenterprise.xilinx.com/SDxGitExamples/pp4fpgas/commit/ae7eb2f108e7b78cc2f3460442804e1d8c007d8e))
+* update examples/README.md on how to use Makefile ([d8acaff](https://gitenterprise.xilinx.com/SDxGitExamples/pp4fpgas/commit/d8acaffd2969dfa9150197fa605ffecff38723fb))
+* update hls/csynth targets to use updated gen_hls_runner_script.py ([3a71ad3](https://gitenterprise.xilinx.com/SDxGitExamples/pp4fpgas/commit/3a71ad3b9969d25311d4677a422aa48b03700187))
+* update ini to support cosim ([1e14ccb](https://gitenterprise.xilinx.com/SDxGitExamples/pp4fpgas/commit/1e14ccb5fb2e615a40b6ebad05f5397bb6fdb705))
+* use dedicated header for restructured_merge_sort component ([271c700](https://gitenterprise.xilinx.com/SDxGitExamples/pp4fpgas/commit/271c7002937111f47b077873ab2d55c329497d16))
+* **video_2dfilter_linebuffer:** initialize uninit local variables ([b743920](https://gitenterprise.xilinx.com/SDxGitExamples/pp4fpgas/commit/b74392050564f4581e659ab1554e2a88fc960918))
+
+
+### Features
+
+* add config_csim_prefix - global on clang sanitizer ([82e42a5](https://gitenterprise.xilinx.com/SDxGitExamples/pp4fpgas/commit/82e42a52cddd0391767376a0e40b1aecca7c0624))
+* add script support for csim/csynth/cosim/impl ([35a203a](https://gitenterprise.xilinx.com/SDxGitExamples/pp4fpgas/commit/35a203a70c6b78a9d3eb4e45a8d4f367825cd4c2))
+
 ## [1.1.12](https://gitenterprise.xilinx.com/SDxGitExamples/pp4fpgas/compare/v1.1.11...v1.1.12) (2025-04-22)
 
 
