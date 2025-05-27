@@ -62,7 +62,6 @@ examples/video*.bmp
 
 scripts/tests/___summary_all_header.adoc
 
-
 *.o
 
 # hls projects
@@ -90,3 +89,5 @@ examples/video*.bmp
 scripts/tests/___summary_all_header.adoc
 
 node_modules/
+
+.analyzer_session.json
