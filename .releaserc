@@ -2,10 +2,6 @@
   "branches": [
     "next",  
     {  
-      "name": "release/*",  
-      "prerelease": false  
-    },  
-    {  
       "name": "master",  
       "prerelease": false  
     }  
