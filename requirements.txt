@@ -1,4 +1,4 @@
-Jinja2==3.1.4
+Jinja2==3.1.6
 jinja2-cli==0.8.2
 kaleido==0.2.1
 MarkupSafe==2.1.5

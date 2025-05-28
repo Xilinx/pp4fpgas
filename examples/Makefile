@@ -205,12 +205,10 @@ HLS_TARGETS += $(patsubst %.cpp,%.comp,$(CXX_HLS_TARGET_FILES))
 %.log: %.bin
 	-./$< > $@ || (echo "./$< > $@ failed $$?"; exit 1)
 
-hls:
-csynth:
+hls csynth:
 	@CSYNTH="--csynth" $(MAKE) $(HLS_TARGETS)
 
-hls_verify:
-csynth_verify:
+hls_verify csynth_verify:
 	@echo "Checking for errors in HLS csynth logs..."
 	@find -wholename "*.comp/hls/hls.log" -exec grep -i 'error:' {} \; > hls_csynth_errors.txt || true > /dev/null 2>&1
 	@if [ -s hls_csynth_errors.txt ]; then \
