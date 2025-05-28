@@ -1,3 +1,12 @@
+## [1.2.1](https://gitenterprise.xilinx.com/SDxGitExamples/pp4fpgas/compare/v1.2.0...v1.2.1) (2025-05-28)
+
+
+### Bug Fixes
+
+* **dependabot:** use Jinja2 v3.1.6 to pass dependabot ([b50f0ec](https://gitenterprise.xilinx.com/SDxGitExamples/pp4fpgas/commit/b50f0ec454d9a163444bab88bdc4595508774dd5))
+* **Makefile:** make hls and alias of csynth target ([d4848c5](https://gitenterprise.xilinx.com/SDxGitExamples/pp4fpgas/commit/d4848c5d6ca5b1ffd59da1a02759da861c254b69))
+* **release:** don't semantic release on release branches ([dcc8746](https://gitenterprise.xilinx.com/SDxGitExamples/pp4fpgas/commit/dcc8746e9453dbaf72a48313bafd16c131004674))
+
 # [1.2.0](https://gitenterprise.xilinx.com/SDxGitExamples/pp4fpgas/compare/v1.1.12...v1.2.0) (2025-04-30)
 
 
