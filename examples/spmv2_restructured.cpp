@@ -31,7 +31,7 @@ void spmv(int rowPtr[NUM_ROWS+1], int columnIndex[NNZ],
  ACC:
 	for(int i=0; i<NNZ * S + NUM_ROWS; i++ ) {
 		int j = i % S;
-#pragma HLS DEPENDENCE variable=y inter distance=8
+#pragma HLS DEPENDENCE variable=y inter distance=S direction=RAW
 #pragma HLS PIPELINE II=1
 
 		if(LB[j] == UB[j]) {
