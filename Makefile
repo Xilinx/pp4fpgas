@@ -29,22 +29,6 @@ main.pdf: main.aux *.tex
 clean:
 	rm -rf main.pdf *.log *~ *.aux *.bbl *.blg *.out
 
-# Manually trigger semantic-release.
-# Warning: This will push to the remote repository.
-#
-# If you want to test the release process without pushing to the remote
-# repository, use `npx semantic-release -d`.
-#
-# NOTE: If you don't have any local modules installed, run 'npm install'.
-semantic-release:
-	npx semantic-release --no-ci
-
-# Create a release branch. This is the release branch that will be 
-# published to github.com/Xilinx/pp4fpgas.
-#
-create-release-branch:
-	./scripts/create-release-branch.sh
-
 nwa:
 	sudo docker run -it \
 		--user $(shell id -u):$(shell id -g) \
