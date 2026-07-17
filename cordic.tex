@@ -53,16 +53,17 @@ R(\theta) = \begin{bmatrix}
 The CORDIC uses an iterative algorithm that rotates a vector $v$ to some target of angle which depends on the function that the CORDIC is performing. One rotation is a matrix vector multiplications in the form of $v_{i} = R_{i} \cdot v_{i-1}$. Thus in each iteration of the CORDIC we perform the following operations to perform one rotation which is the matrix vector multiply:
 \begin{equation}
 \begin{bmatrix}
+x_i \\
+y_i \\
+\end{bmatrix} 
+=
+\begin{bmatrix}
 \cos \theta & -\sin \theta \\
 \sin \theta & \cos \theta \\
 \end{bmatrix}\begin{bmatrix}
 x_{i-1} \\
 y_{i-1} \\
 \end{bmatrix}
-= \begin{bmatrix}
-x_i \\
-y_i \\
-\end{bmatrix} 
 \end{equation}
 Writing out the linear equations, the coordinates of the newly rotated vector are: 
 \begin{equation}
@@ -98,22 +99,28 @@ y_i &= x_{i-1} \sin  90^\circ + y_{i-1} \cos 90^\circ \nonumber \\
 \end{align}
 Putting this altogether we get
 \begin{equation}
+  \begin{bmatrix}
+x_i \\
+y_i \\
+\end{bmatrix} 
+=
+\begin{bmatrix}
+-y_{i-1} \\
+x_{i-1} \\
+\end{bmatrix} 
+=
 \begin{bmatrix}
 0 & -1 \\
 1 & 0 \\
 \end{bmatrix}\begin{bmatrix}
-x \\
-y \\
+x_{i-1} \\
+y_{i-1} \\
 \end{bmatrix}
-= \begin{bmatrix}
--y \\
-x \\
-\end{bmatrix} 
 \end{equation}
 You can see that this is requires a very minimal amount of calculation; the rotated vector simply negates the $y$ value, and then swaps the $x$ and $y$ values. A two's complement negation requires the hardware equivalent to an adder. Thus, we have achieved our goal of performing a $90^\circ$ rotation efficiently.
 
 \begin{exercise}
-What if you wanted to rotation by $-90^\circ$? What is the rotation matrix $R(-90^\circ)$? What type of calculation is required for this rotation? How would one design the most efficient circuit that could perform a positive and negative rotation by $-90^\circ$, i.e., the direction of rotation is an input to the circuit?
+What if you wanted to rotate by $-90^\circ$? What is the rotation matrix $R(-90^\circ)$? What type of calculation is required for this rotation? How would one design the most efficient circuit that could perform a positive and negative rotation by $-90^\circ$, i.e., the direction of rotation is an input to the circuit?
 \end{exercise}
 
 While it is great that we can rotate by $\pm 90^\circ$, we also need to rotate by smaller angles if we wish to have any sort of good resolution in moving to the target angle. Perhaps the next natural angle that we might wish to rotate would be $\pm 45^\circ$. Using the rotation matrix from Equation \ref{eq:rotation_matrix}, we get
@@ -135,20 +142,25 @@ y_i &= x_{i-1} \sin  45^\circ + y_{i-1} \cos 45^\circ \nonumber \\
 &= x_{i-1} \cdot \sqrt 2/2 + y_{i-1} \cdot \sqrt 2/2
 \end{align} which when put back into matrix vector notation is
 \begin{equation}
+    \begin{bmatrix}
+x_i \\
+y_i \\
+\end{bmatrix} 
+=
 \begin{bmatrix}
 \sqrt 2/2 & -\sqrt 2/2 \\
 \sqrt 2/2 & \sqrt 2/2 \\
 \end{bmatrix}
 \begin{bmatrix}
-x \\
-y \\
+x_{i-1} \\
+y_{i-1} \\
 \end{bmatrix}
 = \begin{bmatrix}
-\sqrt 2/2 x - \sqrt 2/2 y \\
-\sqrt 2/2 x + \sqrt 2/2 y \\
+(\sqrt 2/2) x_{i-1} - (\sqrt 2/2) y_{i-1} \\
+(\sqrt 2/2) x_{i-1} + (\sqrt 2/2) y_{i-1} \\
 \end{bmatrix} 
 \end{equation}
-This certainly is not as efficient of a computation as compared to rotating by $\pm 90^\circ$. The $\pm 90^\circ$ rotation was ideal because the multiplication were by very simple constants (in this case $0$, $1$, and $-1$). The key to the CORDIC is doing these rotations in an efficient manner, i.e., defining the rotation matrix in a way that their multiplication is trivial to compute. That is, we wish to be more like the previous $\pm 90^\circ$ and less like the much more difficult computation required for the $\pm 45^\circ$ rotation that we just described.
+This certainly is not as efficient of a computation as compared to rotating by $\pm 90^\circ$. The $\pm 90^\circ$ rotation was ideal because the multiplications were by very simple constants (in this case $0$, $1$, and $-1$). The key to the CORDIC is doing these rotations in an efficient manner, i.e., defining the rotation matrix in a way that their multiplication is trivial to compute. That is, we wish to be more like the previous $\pm 90^\circ$ and less like the much more difficult computation required for the $\pm 45^\circ$ rotation that we just described.
 
 What if we ``forced'' the rotation matrix to be constants that were easy to multiply? For example, a multiplication by any power of two turns into a shift operation. If we set the constants in the rotation matrix to be powers of two, we could very easily perform rotations without multiplication. This is the key idea behind the CORDIC -- finding rotations that are very efficient to compute while minimizing any side effects. We will discuss these ``side effects'' in more detail, but there is an engineering decision that is being made here. In order to get efficient computation, we have to give up something; in this case we have to deal with the fact that the rotation also performs scaling, i.e., it changes the magnitude of the rotated vector  -- more on that later.
 
@@ -236,7 +248,7 @@ Describe the effect of the $i$th iteration on the precision of the results? That
 
 
 \begin{table}[htbp]
-\caption{The rotating angle, scaling factor, and CORDIC gain for the first seven iterations of a CORDIC. Note that the angle decreases by approximately half each time. The scaling factor indicates how much the length the the vector increases during that rotation. The CORDIC gain is the overall increase in the length of the vector which is the product of all of the scaling factors for the current and previous rotations.}
+\caption{The rotating angle, scaling factor, and CORDIC gain for the first seven iterations of a CORDIC. Note that the angle decreases by approximately half each time. The scaling factor indicates how much the length the vector increases during that rotation. The CORDIC gain is the overall increase in the length of the vector which is the product of all of the scaling factors for the current and previous rotations.}
 \begin{center}
 \begin{tabular}{|c|c|c|c|c|c|}
 \hline
@@ -296,7 +308,7 @@ A two-dimensional vector $v$ can be represented using a Cartesian coordinate sys
 \begin{figure}
 \centering
 \includegraphics[width=.55\textwidth]{images/rotation}
-\caption{ The figure shows a two-dimensional plane and a vector represented in both the Cartesian form $(x,y)$ and the polar form $(r, \theta)$ and provides the relationship between those two coordinate systems.  }
+\caption{The figure shows a two-dimensional plane and a vector represented in both the Cartesian form $(x,y)$ and the polar form $(r, \theta)$ and provides the relationship between those two coordinate systems.  }
 \label{fig:cordic_polar}
 \end{figure}
 
@@ -332,7 +344,7 @@ where atan2 is a common variation on the arctangent function defined as
 
 This provides a way to translate between the two coordinate systems. However, these operations are not easy to implement in hardware. For example, sine, cosine, square root, and arctan are not simple operations and they require significant amount of resources. But we can use the CORDIC to perform these operations using a series of simple iterative rotation operations. 
 
-Given a number in Cartesian form $(x,y)$, we can calculates its radial and amplitude coordinate (i.e., convert it to polar form) using the CORDIC. To do this, we rotate the given Cartesian number to $0^{\circ}$. Once this rotation is complete, the amplitude is the $x$ value of the final rotated vector. To determine the radial coordinate, we simply keep track of the cumulative angle of the rotations that the CORDIC performs. The angles of the rotating vector (for $i = 0,1,2,3, \dots$) are known and can be stored in a lookup table as done for calculating sine/cosine. Therefore, we simply need to keep track of the total rotation angle by performing an addition or subtraction of these angles, which depends on the direction of rotation.
+Given a number in Cartesian form $(x,y)$, we can calculate its radial and amplitude coordinate (i.e., convert it to polar form) using the CORDIC. To do this, we rotate the given Cartesian number to $0^{\circ}$. Once this rotation is complete, the amplitude is the $x$ value of the final rotated vector. To determine the radial coordinate, we simply keep track of the cumulative angle of the rotations that the CORDIC performs. The angles of the rotating vector (for $i = 0,1,2,3, \dots$) are known and can be stored in a lookup table as done for calculating sine/cosine. Therefore, we simply need to keep track of the total rotation angle by performing an addition or subtraction of these angles, which depends on the direction of rotation.
 
 The algorithm is similar to that of calculating the sine and cosine of a given angle. We perform a set of rotations with increasing values of $i$ such that the final vector resides on (close to) the positive $x$-axis (i.e., an angle of $0^{\circ}$). This can be done using positive or negative rotations  which is predicated on the $y$ value of the vector whose amplitude and phase we wish to determine. 
 
