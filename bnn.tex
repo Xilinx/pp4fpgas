@@ -118,7 +118,7 @@ In the context of BNNs, the XNOR operation is applied element-wise between binar
 \label{fig:xnor-binary-multiplication}
 \end{figure}
 
-Figure~\ref{fig:xnor} compares the binary multiplication of -1 and +1 with the XNOR operation when -1 is mapped to 1 and +1 is mapped to 0. The left table shows the results of the -1,1 binary multiplication. The right table first quantizes the -1,1 input values to 1,0. Then it performs the XNOR operation on the 0,1 binary values. The results of the XNOR operations is equal to the number of 1 in the -1,1 multiplication. Note this is different than if we performed a reverse mapping/quantization from 0,1 to 1,-1. 
+Figure~\ref{fig:xnor-binary-multiplication} compares the binary multiplication of -1 and +1 with the XNOR operation when -1 is mapped to 1 and +1 is mapped to 0. The left table shows the results of the -1,1 binary multiplication. The right table first quantizes the -1,1 input values to 1,0. Then it performs the XNOR operation on the 0,1 binary values. The results of the XNOR operations is equal to the number of 1 in the -1,1 multiplication. Note this is different than if we performed a reverse mapping/quantization from 0,1 to 1,-1. 
 
 
 
@@ -258,7 +258,7 @@ For layers $1$ through $L$, the weights are first binarized (and quantized) usin
 \subsection{BNN Forward Propagation Implementation using XNOR and Popcount}
 Below you will find a Python implementation for a BNN forward pass, i.e., BNN inference. This network takes a 28x28 MNIST image as input and classifies the digit depicted in the images from 0-9. There are three fully connected layers to this BNN, with each implementing the process described in the pseudo code above: (1) Inputs to each layer (i.e., activations from the previous layer) are binarized and quantized. (2) These inputs are then multiplied with the binary weights using XNOR + popcount. (3) The output is fed to the next layer or used to make the final prediction. 
 
-The model is already trained and the weights for each of the layers are stored in``fc1w\_qntz'', ``fc2w\_qntz'', ``fc3w\_qntz''. These are binary weights stored as 
+The model is already trained and the weights for each of the layers are stored in``fc1w\_qntz'', ``fc2w\_qntz'', ``fc3w\_qntz''. These are binary weights stored as packed bit-vectors, with each weight represented by a single bit (1 for +1, 0 for -1).
 
 
 \begin{python}
