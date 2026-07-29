@@ -1,3 +1,37 @@
+# 2026.1 (2026-07-29)
+
+Verified against Vitis 2026.1 (build 2026.1_0616_1700): **csim 42/42, csynth
+42/42, cosim 42/42 pass**. Includes the first refresh of the book text from
+upstream (KastnerRG) since the fork, most notably the revised Binary Neural
+Network chapter.
+
+
+### Features
+
+* **bnn:** import the upstream 2025 Binary Neural Network chapter revision (+207/-104, 9 new figures), then apply AMD accuracy fixes: correct the figure reference in the XNOR binary-multiplication paragraph, and complete a sentence that broke off mid-way when describing how the trained binary weights are stored ([55f7b40](https://gitenterprise.xilinx.com/SDxGitExamples/pp4fpgas/commit/55f7b40558dbc512d4296d7160e0fc7cd3534b2b), [e2c25c3](https://gitenterprise.xilinx.com/SDxGitExamples/pp4fpgas/commit/e2c25c3f4dca8bd594b8cdbc0769cee94eacd2be))
+* **Makefile:** add a `docker-book` target that builds the book in the official Texlive container, so no local Texlive installation is required (prefers docker, falls back to podman) ([2376e6e](https://gitenterprise.xilinx.com/SDxGitExamples/pp4fpgas/commit/2376e6e75a444e3f562d2b0669fb91d9e1ba2616))
+
+
+### Bug Fixes
+
+* **ci:** build the book outside the developer's machine. The Makefile hardcoded an absolute Texlive path, so the containerized CI build failed with exit 127 before LaTeX ran; Texlive is now taken from PATH when that path is absent ([2376e6e](https://gitenterprise.xilinx.com/SDxGitExamples/pp4fpgas/commit/2376e6e75a444e3f562d2b0669fb91d9e1ba2616))
+* **ci:** replace the deprecated `xucheng/texlive-full` image (last published 2020) with the official `texlive/texlive`, pinned to `TL2024-historic`; add `workflow_dispatch` to both workflows; deploy on the `2026.1` release branch rather than the non-existent `master`; publish the artifact as `pp4fpgas.pdf` instead of `main.pdf` ([2376e6e](https://gitenterprise.xilinx.com/SDxGitExamples/pp4fpgas/commit/2376e6e75a444e3f562d2b0669fb91d9e1ba2616))
+* **ci:** vendor `pythonhighlight.sty` (BSD-3, Olivier Verdier), which `main.tex` has required since 2023 but which is neither in the repository nor in standard TeXLive ([100eed4](https://gitenterprise.xilinx.com/SDxGitExamples/pp4fpgas/commit/100eed4f0bf8411f4fe8506c679ce0ac3e6c3c9a))
+* **spmv2_restructured:** correct the DEPENDENCE pragma inter-distance from 8 to 4, fixing the COSIM 212-361 failure reported in CR-1249411; cosim verified passing on Vitis 2026.1 ([8fcb947](https://gitenterprise.xilinx.com/SDxGitExamples/pp4fpgas/commit/8fcb9474723874847ea8f5840f407764de2c8dad))
+
+
+### Documentation
+
+* adopt upstream prose updates in the preface, acknowledgements, and introduction, and replace the stale "Xilinx University Program" link with the current AMD University Program. AMD's Vivado HLS to Vitis HLS terminology remains authoritative ([31d51f2](https://gitenterprise.xilinx.com/SDxGitExamples/pp4fpgas/commit/31d51f288b366497bb434fefabe83fa4141b4381))
+* **cordic:** adopt the upstream rotation matrices carrying explicit iteration subscripts, plus grammar fixes in `fir.tex`, `huffman_encoding.tex`, and `matrix_multiplication.tex` ([bd93c2a](https://gitenterprise.xilinx.com/SDxGitExamples/pp4fpgas/commit/bd93c2a99aeeeb711fce4a4a5d36d635f14cb8df))
+
+
+### Third-party components
+
+* `pythonhighlight.sty` and `pythonhighlight-LICENSE.rst` (BSD-3-Clause, Copyright 2009-2024 Olivier Verdier) added unmodified, with the original license preserved.
+* The Binary Neural Network chapter revision and the prose updates above are sourced from KastnerRG/pp4fpgas under CC-BY-4.0.
+
+
 ## [1.2.1](https://gitenterprise.xilinx.com/SDxGitExamples/pp4fpgas/compare/v1.2.0...v1.2.1) (2025-05-28)
 
 
