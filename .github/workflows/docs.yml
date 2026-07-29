@@ -1,9 +1,13 @@
 name: Deploy build
 
 on:
+  # Allows the deploy to be run on demand from the Actions tab.
+  workflow_dispatch:
   push:
     branches:
-    - master
+    # The release branch for the current tool version. Update this when a new
+    # release branch is cut (e.g. 2026.2).
+    - 2026.1
     tags:
     - v*
 
@@ -24,19 +28,20 @@ jobs:
       with:
         python-version: ${{ matrix.python-version }}
     - name: Compile book
-      uses: docker://xucheng/texlive-full:latest
+      # Official Texlive image, pinned to the 2024 release. The previous
+      # xucheng/texlive-full image is deprecated (last pushed 2020) and
+      # Alpine-based; this one is Debian-based and already provides make.
+      uses: docker://texlive/texlive:TL2024-historic
       with:
         entrypoint: /bin/sh
-        args: |
-          -c "\
-          apk --no-cache add make && \
-          make all"
+        args: -c "make all"
     - name: List directory contents
       run: ls -lhtra
     - name: Setup build for deployment
       run: |
         mkdir -p docs/_build
-        cp main.pdf docs/_build/main.pdf
+        # main.pdf is the LaTeX build artifact; publish it under the book's name.
+        cp main.pdf docs/_build/pp4fpgas.pdf
     - name: Deploy build to GitHub Pages
       uses: peaceiris/actions-gh-pages@v3
       with:
