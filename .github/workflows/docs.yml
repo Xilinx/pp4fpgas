@@ -11,15 +11,25 @@ on:
     tags:
     - v*
 
-# peaceiris/actions-gh-pages pushes the built book to the gh-pages branch, so the
-# job's GITHUB_TOKEN needs write access to repository contents. Granting it here
-# avoids depending on the repo-wide "Workflow permissions" setting.
+# Publishes via the GitHub Pages "GitHub Actions" source: the site is uploaded as
+# an artifact and deployed by actions/deploy-pages, so nothing is pushed to a
+# gh-pages branch. pages/id-token are what deploy-pages requires.
 permissions:
-  contents: write
+  contents: read
+  pages: write
+  id-token: write
+
+# Serialise deploys; don't cancel a run that is already publishing.
+concurrency:
+  group: pages
+  cancel-in-progress: false
 
 jobs:
   test:
     runs-on: ubuntu-22.04
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
 
     steps:
     - name: Checkout book
@@ -41,11 +51,10 @@ jobs:
         mkdir -p docs/_build
         # main.pdf is the LaTeX build artifact; publish it under the book's name.
         cp main.pdf docs/_build/pp4fpgas.pdf
-    - name: Deploy build to GitHub Pages
-      uses: peaceiris/actions-gh-pages@v3
+    - name: Upload Pages artifact
+      uses: actions/upload-pages-artifact@v3
       with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: docs/_build
-        force_orphan: true
-        user_name: 'github-actions[bot]'
-        user_email: 'github-actions[bot]@users.noreply.github.com'
+        path: docs/_build
+    - name: Deploy build to GitHub Pages
+      id: deployment
+      uses: actions/deploy-pages@v4
