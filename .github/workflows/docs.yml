@@ -51,6 +51,21 @@ jobs:
         mkdir -p docs/_build
         # main.pdf is the LaTeX build artifact; publish it under the book's name.
         cp main.pdf docs/_build/pp4fpgas.pdf
+        # The site publishes a single PDF, so give the root URL a page that
+        # redirects to it -- otherwise https://<org>.github.io/pp4fpgas/ is a 404.
+        cat > docs/_build/index.html <<'HTML'
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+        <meta charset="utf-8">
+        <title>Parallel Programming for FPGAs</title>
+        <meta http-equiv="refresh" content="0; url=pp4fpgas.pdf">
+        </head>
+        <body>
+        <p><a href="pp4fpgas.pdf">Parallel Programming for FPGAs (PDF)</a></p>
+        </body>
+        </html>
+        HTML
     - name: Upload Pages artifact
       uses: actions/upload-pages-artifact@v3
       with:
