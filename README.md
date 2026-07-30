@@ -1,5 +1,4 @@
-# pp4fpgas
-Parallel Programming for FPGAs
+# pp4fpgas — AMD Vitis HLS edition
 
 [![CI](https://github.com/Xilinx/pp4fpgas/actions/workflows/ci.yml/badge.svg?branch=2026.1)](https://github.com/Xilinx/pp4fpgas/actions/workflows/ci.yml)
 [![read](https://img.shields.io/badge/Read-online-green.svg)](https://xilinx.github.io/pp4fpgas/)
@@ -8,11 +7,25 @@ Parallel Programming for FPGAs
 **Read the book: <https://xilinx.github.io/pp4fpgas/>** — the PDF is rebuilt from
 this repository on every change to the release branch.
 
-Ryan Kastner, Janarbek Matai, and Stephen Neuendorffer
+An open-source high-level synthesis book by Ryan Kastner, Janarbek Matai, and
+Stephen Neuendorffer — <http://hls.ucsd.edu/>
 
-An open-source high-level synthesis book
+## Which version is this?
 
-http://hls.ucsd.edu/
+This is AMD's fork of [KastnerRG/pp4fpgas](https://github.com/KastnerRG/pp4fpgas),
+maintained so that the book's examples keep working with current AMD tools. It
+differs from the original in three ways:
+
+- **The examples target Vitis HLS**, not the discontinued Vivado HLS, and are
+  updated as the tool changes.
+- **Every example is regression-tested** against the matching Vitis release (C
+  simulation, synthesis, and co-simulation) before that release branch ships.
+- **Each release has its own branch** named for the Vitis version — `2026.1` is
+  the current one. The default branch is the most recent release.
+
+The book text is the authors' work, used under CC-BY-4.0 and kept close to
+upstream; AMD's changes are noted in [CHANGELOG.md](CHANGELOG.md). **If you want
+the authors' original edition, use [KastnerRG/pp4fpgas](https://github.com/KastnerRG/pp4fpgas).**
 
 # Background
 
@@ -22,15 +35,9 @@ The book was developed over many years to serve as a primary reference for [UCSD
 
 The book is licensed under the [Creative Commons Attribution 4.0 International License](LICENSE). We encourage you to make edits, add material, and fix errors. Thanks to those who have made pull requests over the years. Please keep them coming!
 
-This AMD edition tracks the Vitis HLS tool releases: the examples are built and
-verified against the corresponding Vitis version, and each release lives on its
-own branch (`2026.1`, and so on). For quicker access, [here is the pre-built
-pdf](https://xilinx.github.io/pp4fpgas/pp4fpgas.pdf).
-
-The original book by Kastner, Matai, and Neuendorffer is at
-https://github.com/KastnerRG/pp4fpgas — this repository is a fork of it, and the
-authors' [pre-built pdf](https://github.com/KastnerRG/pp4fpgas/raw/gh-pages/main.pdf)
-remains available there.
+Feel free to grab the source at the authors' github repo
+https://github.com/KastnerRG/pp4fpgas, or for quicker access, [here is this
+edition's pre-built pdf](https://xilinx.github.io/pp4fpgas/pp4fpgas.pdf).
 
 Some fine people have translated this book into Mandarin - [pp4fpgas-ch](https://github.com/xupsh/pp4fpgas-cn)
 
