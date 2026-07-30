@@ -11,6 +11,12 @@ on:
     tags:
     - v*
 
+# peaceiris/actions-gh-pages pushes the built book to the gh-pages branch, so the
+# job's GITHUB_TOKEN needs write access to repository contents. Granting it here
+# avoids depending on the repo-wide "Workflow permissions" setting.
+permissions:
+  contents: write
+
 jobs:
   test:
     runs-on: ubuntu-22.04
