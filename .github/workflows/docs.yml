@@ -14,19 +14,12 @@ on:
 jobs:
   test:
     runs-on: ubuntu-22.04
-    strategy:
-      matrix:
-        python-version: [ '3.9' ]
 
     steps:
     - name: Checkout book
-      uses: actions/checkout@v2
+      uses: actions/checkout@v4
       with:
         submodules: 'recursive'
-    - name: Set up Python ${{ matrix.python-version }}
-      uses: actions/setup-python@v1
-      with:
-        python-version: ${{ matrix.python-version }}
     - name: Compile book
       # Official Texlive image, pinned to the 2024 release. The previous
       # xucheng/texlive-full image is deprecated (last pushed 2020) and
