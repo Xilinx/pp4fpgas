@@ -1,4 +1,4 @@
-# pp4fpgas — AMD Vitis HLS edition
+# pp4fpgas — AMD edition
 
 [![CI](https://github.com/Xilinx/pp4fpgas/actions/workflows/ci.yml/badge.svg?branch=2026.1)](https://github.com/Xilinx/pp4fpgas/actions/workflows/ci.yml)
 [![read](https://img.shields.io/badge/Read-online-green.svg)](https://xilinx.github.io/pp4fpgas/)
@@ -10,11 +10,16 @@ this repository on every change to the release branch.
 An open-source high-level synthesis book by Ryan Kastner, Janarbek Matai, and
 Stephen Neuendorffer — <http://hls.ucsd.edu/>
 
-## Which version is this?
+> **This is the AMD edition.** It is a fork of
+> [KastnerRG/pp4fpgas](https://github.com/KastnerRG/pp4fpgas) whose examples are
+> migrated to Vitis HLS and regression-tested against each Vitis release. For the
+> authors' original edition, go to
+> [KastnerRG/pp4fpgas](https://github.com/KastnerRG/pp4fpgas).
 
-This is AMD's fork of [KastnerRG/pp4fpgas](https://github.com/KastnerRG/pp4fpgas),
-maintained so that the book's examples keep working with current AMD tools. It
-differs from the original in three ways:
+## What is different in this edition
+
+AMD maintains this fork so that the book's examples keep working with current
+AMD tools:
 
 - **The examples target Vitis HLS**, not the discontinued Vivado HLS, and are
   updated as the tool changes.
@@ -24,8 +29,7 @@ differs from the original in three ways:
   the current one. The default branch is the most recent release.
 
 The book text is the authors' work, used under CC-BY-4.0 and kept close to
-upstream; AMD's changes are noted in [CHANGELOG.md](CHANGELOG.md). **If you want
-the authors' original edition, use [KastnerRG/pp4fpgas](https://github.com/KastnerRG/pp4fpgas).**
+upstream; AMD's changes are noted in [CHANGELOG.md](CHANGELOG.md).
 
 # Background
 
