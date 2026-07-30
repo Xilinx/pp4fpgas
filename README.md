@@ -1,9 +1,12 @@
 # pp4fpgas
 Parallel Programming for FPGAs
 
-[![GitHub Actions Status: CI](https://github.com/KastnerRG/pp4fpgas/workflows/Deploy%20build/badge.svg)](https://github.com/KastnerRG/pp4fpgas/actions?query=workflow%3A"Deploy+build"+branch%3Amaster)
-[![GitHub view](https://img.shields.io/badge/GitHub-render-green.svg)](https://github.com/KastnerRG/pp4fpgas/blob/gh-pages/main.pdf)
-[![download](https://img.shields.io/badge/Download-build-blue.svg)](https://github.com/KastnerRG/pp4fpgas/raw/gh-pages/main.pdf)
+[![CI](https://github.com/Xilinx/pp4fpgas/actions/workflows/ci.yml/badge.svg?branch=2026.1)](https://github.com/Xilinx/pp4fpgas/actions/workflows/ci.yml)
+[![read](https://img.shields.io/badge/Read-online-green.svg)](https://xilinx.github.io/pp4fpgas/)
+[![download](https://img.shields.io/badge/Download-pdf-blue.svg)](https://xilinx.github.io/pp4fpgas/pp4fpgas.pdf)
+
+**Read the book: <https://xilinx.github.io/pp4fpgas/>** — the PDF is rebuilt from
+this repository on every change to the release branch.
 
 Ryan Kastner, Janarbek Matai, and Stephen Neuendorffer
 
@@ -19,7 +22,15 @@ The book was developed over many years to serve as a primary reference for [UCSD
 
 The book is licensed under the [Creative Commons Attribution 4.0 International License](LICENSE). We encourage you to make edits, add material, and fix errors. Thanks to those who have made pull requests over the years. Please keep them coming!
 
-Feel free to grab the source at our github repo https://github.com/KastnerRG/pp4fpgas or for quicker access, [here is the pre-built pdf](https://github.com/KastnerRG/pp4fpgas/raw/gh-pages/main.pdf).
+This AMD edition tracks the Vitis HLS tool releases: the examples are built and
+verified against the corresponding Vitis version, and each release lives on its
+own branch (`2026.1`, and so on). For quicker access, [here is the pre-built
+pdf](https://xilinx.github.io/pp4fpgas/pp4fpgas.pdf).
+
+The original book by Kastner, Matai, and Neuendorffer is at
+https://github.com/KastnerRG/pp4fpgas — this repository is a fork of it, and the
+authors' [pre-built pdf](https://github.com/KastnerRG/pp4fpgas/raw/gh-pages/main.pdf)
+remains available there.
 
 Some fine people have translated this book into Mandarin - [pp4fpgas-ch](https://github.com/xupsh/pp4fpgas-cn)
 
