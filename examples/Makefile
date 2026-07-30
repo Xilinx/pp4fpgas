@@ -139,6 +139,10 @@ insertion_cell_sort-top.bin: insertion_cell_sort-top.cpp insertion_cell_sort.cpp
 #	dft.c \
 #	dft_precompute.c \
 
+#  book listing only -- a bare code fragment with no #include, so it does not
+#  compile standalone, and its ini section sets tb_files = none.
+#	partial_insertion_cell_sort.cpp \
+
 CC_HLS_TARGET_FILES = \
 	block_fir.c \
 	fir.c \
@@ -167,6 +171,7 @@ CXX_HLS_TARGET_FILES = \
 	histogramSW.cpp \
 	histogram_dependence.cpp \
 	histogram_opt1.cpp \
+	histogram_parallel.cpp \
 	huffman_encoding.cpp \
 	insertion_cell_sort.cpp \
 	insertion_sort.cpp \
