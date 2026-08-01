@@ -1,9 +1,10 @@
-# 2026.1 (2026-07-29)
+# 2026.1 (2026-08-01)
 
-Verified against Vitis 2026.1 (build 2026.1_0616_1700): **csim 42/42, csynth
-42/42, cosim 42/42 pass**. Includes the first refresh of the book text from
-upstream (KastnerRG) since the fork, most notably the revised Binary Neural
-Network chapter.
+Verified against Vitis 2026.1 (build `2026.1_2026_0616_2055`): **csim 48/48,
+csynth 48/48, cosim 48/48 pass** — every design in the Makefile's
+`HLS_TARGETS`. Includes the first refresh of the book text from upstream
+(KastnerRG) since the fork, most notably the revised Binary Neural Network
+chapter.
 
 
 ### Features
@@ -17,6 +18,9 @@ Network chapter.
 * **ci:** build the book outside the developer's machine. The Makefile hardcoded an absolute Texlive path, so the containerized CI build failed with exit 127 before LaTeX ran; Texlive is now taken from PATH when that path is absent ([2376e6e](https://gitenterprise.xilinx.com/SDxGitExamples/pp4fpgas/commit/2376e6e75a444e3f562d2b0669fb91d9e1ba2616))
 * **ci:** replace the deprecated `xucheng/texlive-full` image (last published 2020) with the official `texlive/texlive`, pinned to `TL2024-historic`; add `workflow_dispatch` to both workflows; deploy on the `2026.1` release branch rather than the non-existent `master`; publish the artifact as `pp4fpgas.pdf` instead of `main.pdf` ([2376e6e](https://gitenterprise.xilinx.com/SDxGitExamples/pp4fpgas/commit/2376e6e75a444e3f562d2b0669fb91d9e1ba2616))
 * **ci:** vendor `pythonhighlight.sty` (BSD-3, Olivier Verdier), which `main.tex` has required since 2023 but which is neither in the repository nor in standard TeXLive ([100eed4](https://gitenterprise.xilinx.com/SDxGitExamples/pp4fpgas/commit/100eed4f0bf8411f4fe8506c679ce0ac3e6c3c9a))
+* **ci:** drop the `actions/setup-python` step. GitHub's runners no longer ship Python 3.9, so the job failed before reaching the book build; nothing in the build uses Python ([bdf9ddf](https://gitenterprise.xilinx.com/SDxGitExamples/pp4fpgas/commit/bdf9ddff0d87fec7a1abe9709a3882d737d03cb4))
+* **ci:** publish the book to GitHub Pages. The deploy job now has the write permission it needs, uses the official Pages actions, and emits an `index.html` so the site root resolves ([9143ba6](https://gitenterprise.xilinx.com/SDxGitExamples/pp4fpgas/commit/9143ba6a8e74664e866ba421e97f2632330a1b7e), [bd4cf3f](https://gitenterprise.xilinx.com/SDxGitExamples/pp4fpgas/commit/bd4cf3f9075d92c6825cd6b355f029f66c130fa8), [166fab4](https://gitenterprise.xilinx.com/SDxGitExamples/pp4fpgas/commit/166fab4dc3610778c02c8b52b8800140978720d1))
+* **examples:** correct the `firrolled` testbench. `__hls_config__.ini` pointed `tb_files` at `fir-top.c`, which calls `fir()` while `firrolled.c` defines `block_fir()`, so csim failed to link. Latent since 2024-07 because the regression farm ran a tcl generated before the change. Also add `histogram_parallel` to `HLS_TARGETS` — it was fully provisioned but built by nothing — and record why `partial_insertion_cell_sort` is excluded ([70a3c1c](https://gitenterprise.xilinx.com/SDxGitExamples/pp4fpgas/commit/70a3c1c25f4f815ceb9ea533c254aea541891703))
 * **spmv2_restructured:** correct the DEPENDENCE pragma inter-distance from 8 to 4, fixing the COSIM 212-361 failure reported in CR-1249411; cosim verified passing on Vitis 2026.1 ([8fcb947](https://gitenterprise.xilinx.com/SDxGitExamples/pp4fpgas/commit/8fcb9474723874847ea8f5840f407764de2c8dad))
 
 
@@ -24,6 +28,7 @@ Network chapter.
 
 * adopt upstream prose updates in the preface, acknowledgements, and introduction, and replace the stale "Xilinx University Program" link with the current AMD University Program. AMD's Vivado HLS to Vitis HLS terminology remains authoritative ([31d51f2](https://gitenterprise.xilinx.com/SDxGitExamples/pp4fpgas/commit/31d51f288b366497bb434fefabe83fa4141b4381))
 * **cordic:** adopt the upstream rotation matrices carrying explicit iteration subscripts, plus grammar fixes in `fir.tex`, `huffman_encoding.tex`, and `matrix_multiplication.tex` ([bd93c2a](https://gitenterprise.xilinx.com/SDxGitExamples/pp4fpgas/commit/bd93c2a99aeeeb711fce4a4a5d36d635f14cb8df))
+* **readme:** identify this as the AMD edition, state what differs from the authors' original, and point the badges and download links at this repository's own build rather than upstream's ([39b32c1](https://gitenterprise.xilinx.com/SDxGitExamples/pp4fpgas/commit/39b32c1ece69fb9891b7b38f1db81701c8623a55), [82c5110](https://gitenterprise.xilinx.com/SDxGitExamples/pp4fpgas/commit/82c5110f8a8e218744604b063f37da874ce5baa8), [ae141bb](https://gitenterprise.xilinx.com/SDxGitExamples/pp4fpgas/commit/ae141bb865bafb2109cf6f1cb0916afe22628dba))
 
 
 ### Third-party components
