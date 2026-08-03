@@ -9,8 +9,6 @@
 # To run, impl
 # IMPL="--impl" make hls
 
-# select the HLS compiler to use (vivado_hls or vitis)
-USE_VITIS ?= 1
 CSIM ?=
 COSIM ?=
 CSYNTH ?=
@@ -18,8 +16,6 @@ IMPL ?=
 
 # Add vitis-run args if desired
 VITIS_RUN_ARGS ?=
-
-ifeq ($(USE_VITIS),1)
 
 ## Extract the first "YYYY.m" pattern from the path of the vitis-run executable
 #VERSION := $(shell which vitis-run | grep -oP '(?<=Vitis/)[0-9]{4}.[0-9]+' | head -n 1)
@@ -63,16 +59,7 @@ else
 $(error Unsupported Vitis version $(VERSION))
 endif
 
-HLS_CONFIG_FILE = $(CURDIR)/__hls_config__versal500__.ini
-
-else
-
-VHLS := $(shell vivado_hls -r)
-HLS_COMPILER=vivado_hls -f
-
 HLS_CONFIG_FILE = $(CURDIR)/__hls_config__.ini
-
-endif
 
 EXAMPLES = $(shell ls *-top.c)
 EXAMPLES_CPP = $(shell ls *-top.cpp)
